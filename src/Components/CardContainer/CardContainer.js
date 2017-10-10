@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 
 const CardContainer = ( arrayOfNounObjects ) => {
-
   const mappedCards = arrayOfNounObjects.map( noun => {
     return (
       <li>
