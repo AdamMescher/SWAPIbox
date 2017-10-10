@@ -4,14 +4,10 @@ import Button from '../Button/Button';
 
 const Card = ( { nounObject } ) => {
   const mappedNounObject = Object.keys( nounObject ).map( key => {
-    return (
-      <dt className="card-definition-term">
-        {key}
-      </dt>
-      <dd className="card-definition-definition">
-        {nounObject[key]}
-      </dd>
-    )
+    return ([
+        <dt className="card-definition-term">{key}</dt>,
+        <dd>{nounObject[key]}</dd>
+    ])
   });
 
   return (
