@@ -9,7 +9,7 @@ const Card = ( { nounObject } ) => {
         {key}
       </dt>
       <dd className="card-definition-definition">
-        {nountObject[key]}
+        {nounObject[key]}
       </dd>
     )
   });
