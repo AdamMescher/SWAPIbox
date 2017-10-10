@@ -1,1 +1,8 @@
 @import './Components/App/App.css';
+@import './Components/Aside/Aside.css';
+@import './Components/Button/Button.css';
+@import './Components/Card/Card.css';
+@import './Components/CardContainer/CardContainer.css';
+@import './Components/Counter/Counter.css';
+@import './Components/Header/Header.css';
+@import './Components/Nav/Nav.css';
