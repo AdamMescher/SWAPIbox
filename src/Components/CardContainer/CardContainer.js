@@ -6,7 +6,6 @@ import dataBuilder from '../../helper';
 const CardContainer = ( {nounObjects} ) => {
   const mappedCards = nounObjects.map( noun => {
     noun = dataBuilder(noun);
-    console.log(noun);
     return (
       <li>
         <Card
