@@ -2,19 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 
-const Card = ( { nounObject } ) => {
-  const mappedNounObject = Object.keys( nounObject ).map( key => {
+const Card = ( {name, url, displayData } ) => {
+  const mappedNounObject = Object.keys( displayData ).map( key => {
     return ([
         <dt className="card-definition-term">{key}</dt>,
-        <dd>{nounObject[key]}</dd>
+        <dd>{displayData[key]}</dd>
     ])
   });
 
   return (
     <div className="card">
       <section className="card-header">
-        <h3 className="card-title">{nounObject[name]}</h3>
-        <Button />
+        <h3 className="card-title">{name}</h3>
+        <Button
+        className={url} />
       </section>
       <dl className="card-definition-list">
         {mappedNounObject}
