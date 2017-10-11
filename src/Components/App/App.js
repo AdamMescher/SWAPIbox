@@ -5,10 +5,23 @@ class App extends Component {
   constructor () {
     super();
     this.state = {
+      movieArray: [],
       peopleArray: [],
       planetArray: [],
       vehicleArray: []
     }
+  }
+
+  getMovieData(url){
+    fetch(url)
+      .then( rawData => rawData.json() )
+        .then( data => data.results.map( movie => {
+          return {
+            title: movie.title,
+            date: movie.created,
+            text: movie.opening_crawl
+          }
+        } ) ).then( response =>  this.setState({movieArray: response}) )
   }
 
   getPeopleData(url){
@@ -103,6 +116,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getMovieData('https://swapi.co/api/films');
     this.getPeopleData('https://swapi.co/api/people');
     this.getPlanetData('https://swapi.co/api/planets');
     this.getVehicleData('https://swapi.co/api/vehicles');
