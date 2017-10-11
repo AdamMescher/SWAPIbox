@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-// let grossFactorHomeworld;
-// let grossFactorSpecies;
-// let grossFactorPerson;
 
 class App extends Component {
   constructor () {
@@ -58,7 +55,6 @@ class App extends Component {
     fetch(url)
     .then(raw => raw.json())
     .then(parsedData => {
-      // console.log(parsedData);
       const unresolvedPromises = parsedData.results.map( (planet, index, array) => {
         let tempObject = {
           name: planet.name,
@@ -76,7 +72,6 @@ class App extends Component {
           })
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
-          // console.log(promiseAllResults);
           this.setState({
             planetArray: promiseAllResults
           })
@@ -88,7 +83,6 @@ class App extends Component {
     fetch(url)
     .then(rawVehiclesData => rawVehiclesData.json())
     .then(vehiclesData => {
-      // console.log(vehiclesData);
       return vehiclesData.results.map( (vehicle) => {
         return Object.assign({}, {
           name: vehicle.name,
@@ -110,58 +104,8 @@ class App extends Component {
   componentDidMount() {
     this.getPeopleData('https://swapi.co/api/people');
     this.getPlanetData('https://swapi.co/api/planets');
-    this.getVehicleData('https://swapi.co/api/vehicles')
-
+    this.getVehicleData('https://swapi.co/api/vehicles');
   }
-
-  // componentDidMount() {
-  //   fetch('https://swapi.co/api/people/')
-  //   .then(raw => raw.json())
-  //   .then(parsedData => {
-  //     console.log(parsedData)
-  //     const unresolvedHomeworldPromises = parsedData.results.map( (person) => {
-  //       return fetch(person.homeworld)
-  //       .then(homeworldRawData => homeworldRawData.json())
-  //       // .then(dataOutput => {console.log(dataOutput)})
-  //     });
-  //     const unresolvedSpeciesPromises = parsedData.results.map( (person) => {
-  //       return fetch(person.species[0])
-  //       .then(speciesRawData => speciesRawData.json())
-  //     })
-  //
-  //     Promise.all(unresolvedHomeworldPromises)
-  //     .then(homeworldData => {
-  //       console.log(homeworldData);
-  //       grossFactorHomeworld = homeworldData;
-  //     })
-  //     Promise.all(unresolvedSpeciesPromises)
-  //     .then(speciesData => {
-  //       console.log(speciesData);
-  //       grossFactorSpecies = speciesData
-  //     })
-  //
-  //     grossFactorPerson = parsedData;
-  //
-  //   })
-
-    // .then(noReturn => {
-    //   console.log(
-    //     grossFactorPerson.results.map( (person, index) => (
-    //       Object.assign({}, {
-    //         name: person.name,
-    //         species: grossFactorSpecies[index].name,
-    //         homeworld: grossFactorHomeworld[index].name,
-    //         homeworldPop: grossFactorHomeworld[index].population
-    //       })
-    //       )
-    //     )
-    //   );
-    // })
-
-
-  // }
-
-
 
   render() {
     return (
