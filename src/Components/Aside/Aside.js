@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Aside = ({movieData}) => {
-  let randomIndex = Math.floor(  Math.floor(Math.random() * movieData.length + 1) )
+  const randomIndex = Math.floor(  Math.floor(Math.random() * movieData.length + 1) )
   return(
     <aside className="aside">
       <p className="aside-opening-crawl">{movieData[randomIndex].text}</p>
