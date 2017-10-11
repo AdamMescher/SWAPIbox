@@ -1,0 +1,1191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CARD Matches person snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): ShallowWrapper {
+    "length": 1,
+    Symbol(enzyme.__root__): [Circular],
+    Symbol(enzyme.__unrendered__): <Card
+      nounObject={
+            Object {
+                  "homeworld": "Tatooine",
+                  "language": "Galactic Basic",
+                  "name": "Luke Skywalker",
+                  "population": 200000,
+                  "species": "Human",
+                }
+      }
+/>,
+    Symbol(enzyme.__renderer__): Object {
+      "batchedUpdates": [Function],
+      "getNode": [Function],
+      "render": [Function],
+      "simulateEvent": [Function],
+      "unmount": [Function],
+    },
+    Symbol(enzyme.__node__): Object {
+      "instance": null,
+      "key": null,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <section
+            className="card-header"
+>
+            <h3
+                        className="card-title"
+            />
+            <Button />
+</section>,
+          <dl
+            className="card-definition-list"
+>
+            <dt
+                        className="card-definition-term"
+            >
+                        name
+            </dt>
+            <dd>
+                        Luke Skywalker
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        species
+            </dt>
+            <dd>
+                        Human
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        homeworld
+            </dt>
+            <dd>
+                        Tatooine
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        language
+            </dt>
+            <dd>
+                        Galactic Basic
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        population
+            </dt>
+            <dd>
+                        200000
+            </dd>
+</dl>,
+        ],
+        "className": "card",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": null,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h3
+                className="card-title"
+/>,
+              <Button />,
+            ],
+            "className": "card-header",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": undefined,
+                "className": "card-title",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "h3",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "function",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "section",
+        },
+        Object {
+          "instance": null,
+          "key": null,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  name
+</dt>,
+                <dd>
+                  Luke Skywalker
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  species
+</dt>,
+                <dd>
+                  Human
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  homeworld
+</dt>,
+                <dd>
+                  Tatooine
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  language
+</dt>,
+                <dd>
+                  Galactic Basic
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  population
+</dt>,
+                <dd>
+                  200000
+</dd>,
+              ],
+            ],
+            "className": "card-definition-list",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "name",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "name",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Luke Skywalker",
+              },
+              "ref": null,
+              "rendered": "Luke Skywalker",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "species",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "species",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Human",
+              },
+              "ref": null,
+              "rendered": "Human",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "homeworld",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "homeworld",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Tatooine",
+              },
+              "ref": null,
+              "rendered": "Tatooine",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "language",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "language",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Galactic Basic",
+              },
+              "ref": null,
+              "rendered": "Galactic Basic",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "population",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "population",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": 200000,
+              },
+              "ref": null,
+              "rendered": 200000,
+              "type": "dd",
+            },
+          ],
+          "type": "dl",
+        },
+      ],
+      "type": "div",
+    },
+    Symbol(enzyme.__nodes__): Array [
+      Object {
+        "instance": null,
+        "key": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <section
+              className="card-header"
+>
+              <h3
+                            className="card-title"
+              />
+              <Button />
+</section>,
+            <dl
+              className="card-definition-list"
+>
+              <dt
+                            className="card-definition-term"
+              >
+                            name
+              </dt>
+              <dd>
+                            Luke Skywalker
+              </dd>
+              <dt
+                            className="card-definition-term"
+              >
+                            species
+              </dt>
+              <dd>
+                            Human
+              </dd>
+              <dt
+                            className="card-definition-term"
+              >
+                            homeworld
+              </dt>
+              <dd>
+                            Tatooine
+              </dd>
+              <dt
+                            className="card-definition-term"
+              >
+                            language
+              </dt>
+              <dd>
+                            Galactic Basic
+              </dd>
+              <dt
+                            className="card-definition-term"
+              >
+                            population
+              </dt>
+              <dd>
+                            200000
+              </dd>
+</dl>,
+          ],
+          "className": "card",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <h3
+                  className="card-title"
+/>,
+                <Button />,
+              ],
+              "className": "card-header",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": undefined,
+                  "className": "card-title",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "h3",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
+            "type": "section",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                Array [
+                  <dt
+                    className="card-definition-term"
+>
+                    name
+</dt>,
+                  <dd>
+                    Luke Skywalker
+</dd>,
+                ],
+                Array [
+                  <dt
+                    className="card-definition-term"
+>
+                    species
+</dt>,
+                  <dd>
+                    Human
+</dd>,
+                ],
+                Array [
+                  <dt
+                    className="card-definition-term"
+>
+                    homeworld
+</dt>,
+                  <dd>
+                    Tatooine
+</dd>,
+                ],
+                Array [
+                  <dt
+                    className="card-definition-term"
+>
+                    language
+</dt>,
+                  <dd>
+                    Galactic Basic
+</dd>,
+                ],
+                Array [
+                  <dt
+                    className="card-definition-term"
+>
+                    population
+</dt>,
+                  <dd>
+                    200000
+</dd>,
+                ],
+              ],
+              "className": "card-definition-list",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "name",
+                  "className": "card-definition-term",
+                },
+                "ref": null,
+                "rendered": "name",
+                "type": "dt",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Luke Skywalker",
+                },
+                "ref": null,
+                "rendered": "Luke Skywalker",
+                "type": "dd",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "species",
+                  "className": "card-definition-term",
+                },
+                "ref": null,
+                "rendered": "species",
+                "type": "dt",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Human",
+                },
+                "ref": null,
+                "rendered": "Human",
+                "type": "dd",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "homeworld",
+                  "className": "card-definition-term",
+                },
+                "ref": null,
+                "rendered": "homeworld",
+                "type": "dt",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Tatooine",
+                },
+                "ref": null,
+                "rendered": "Tatooine",
+                "type": "dd",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "language",
+                  "className": "card-definition-term",
+                },
+                "ref": null,
+                "rendered": "language",
+                "type": "dt",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Galactic Basic",
+                },
+                "ref": null,
+                "rendered": "Galactic Basic",
+                "type": "dd",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "population",
+                  "className": "card-definition-term",
+                },
+                "ref": null,
+                "rendered": "population",
+                "type": "dt",
+              },
+              Object {
+                "instance": null,
+                "key": null,
+                "nodeType": "host",
+                "props": Object {
+                  "children": 200000,
+                },
+                "ref": null,
+                "rendered": 200000,
+                "type": "dd",
+              },
+            ],
+            "type": "dl",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    Symbol(enzyme.__options__): Object {
+      "adapter": ReactSixteenAdapter {
+        "options": Object {
+          "enableComponentDidUpdateOnSetState": true,
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__unrendered__): null,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": null,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <section
+          className="card-header"
+>
+          <h3
+                    className="card-title"
+          />
+          <Button />
+</section>,
+        <dl
+          className="card-definition-list"
+>
+          <dt
+                    className="card-definition-term"
+          >
+                    name
+          </dt>
+          <dd>
+                    Luke Skywalker
+          </dd>
+          <dt
+                    className="card-definition-term"
+          >
+                    species
+          </dt>
+          <dd>
+                    Human
+          </dd>
+          <dt
+                    className="card-definition-term"
+          >
+                    homeworld
+          </dt>
+          <dd>
+                    Tatooine
+          </dd>
+          <dt
+                    className="card-definition-term"
+          >
+                    language
+          </dt>
+          <dd>
+                    Galactic Basic
+          </dd>
+          <dt
+                    className="card-definition-term"
+          >
+                    population
+          </dt>
+          <dd>
+                    200000
+          </dd>
+</dl>,
+      ],
+      "className": "card",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <h3
+              className="card-title"
+/>,
+            <Button />,
+          ],
+          "className": "card-header",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": undefined,
+              "className": "card-title",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "h3",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "function",
+            "props": Object {},
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "section",
+      },
+      Object {
+        "instance": null,
+        "key": null,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            Array [
+              <dt
+                className="card-definition-term"
+>
+                name
+</dt>,
+              <dd>
+                Luke Skywalker
+</dd>,
+            ],
+            Array [
+              <dt
+                className="card-definition-term"
+>
+                species
+</dt>,
+              <dd>
+                Human
+</dd>,
+            ],
+            Array [
+              <dt
+                className="card-definition-term"
+>
+                homeworld
+</dt>,
+              <dd>
+                Tatooine
+</dd>,
+            ],
+            Array [
+              <dt
+                className="card-definition-term"
+>
+                language
+</dt>,
+              <dd>
+                Galactic Basic
+</dd>,
+            ],
+            Array [
+              <dt
+                className="card-definition-term"
+>
+                population
+</dt>,
+              <dd>
+                200000
+</dd>,
+            ],
+          ],
+          "className": "card-definition-list",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "name",
+              "className": "card-definition-term",
+            },
+            "ref": null,
+            "rendered": "name",
+            "type": "dt",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Luke Skywalker",
+            },
+            "ref": null,
+            "rendered": "Luke Skywalker",
+            "type": "dd",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "species",
+              "className": "card-definition-term",
+            },
+            "ref": null,
+            "rendered": "species",
+            "type": "dt",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Human",
+            },
+            "ref": null,
+            "rendered": "Human",
+            "type": "dd",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "homeworld",
+              "className": "card-definition-term",
+            },
+            "ref": null,
+            "rendered": "homeworld",
+            "type": "dt",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Tatooine",
+            },
+            "ref": null,
+            "rendered": "Tatooine",
+            "type": "dd",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "language",
+              "className": "card-definition-term",
+            },
+            "ref": null,
+            "rendered": "language",
+            "type": "dt",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Galactic Basic",
+            },
+            "ref": null,
+            "rendered": "Galactic Basic",
+            "type": "dd",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": "population",
+              "className": "card-definition-term",
+            },
+            "ref": null,
+            "rendered": "population",
+            "type": "dt",
+          },
+          Object {
+            "instance": null,
+            "key": null,
+            "nodeType": "host",
+            "props": Object {
+              "children": 200000,
+            },
+            "ref": null,
+            "rendered": 200000,
+            "type": "dd",
+          },
+        ],
+        "type": "dl",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": null,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <section
+            className="card-header"
+>
+            <h3
+                        className="card-title"
+            />
+            <Button />
+</section>,
+          <dl
+            className="card-definition-list"
+>
+            <dt
+                        className="card-definition-term"
+            >
+                        name
+            </dt>
+            <dd>
+                        Luke Skywalker
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        species
+            </dt>
+            <dd>
+                        Human
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        homeworld
+            </dt>
+            <dd>
+                        Tatooine
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        language
+            </dt>
+            <dd>
+                        Galactic Basic
+            </dd>
+            <dt
+                        className="card-definition-term"
+            >
+                        population
+            </dt>
+            <dd>
+                        200000
+            </dd>
+</dl>,
+        ],
+        "className": "card",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": null,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h3
+                className="card-title"
+/>,
+              <Button />,
+            ],
+            "className": "card-header",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": undefined,
+                "className": "card-title",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "h3",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "function",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "section",
+        },
+        Object {
+          "instance": null,
+          "key": null,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  name
+</dt>,
+                <dd>
+                  Luke Skywalker
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  species
+</dt>,
+                <dd>
+                  Human
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  homeworld
+</dt>,
+                <dd>
+                  Tatooine
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  language
+</dt>,
+                <dd>
+                  Galactic Basic
+</dd>,
+              ],
+              Array [
+                <dt
+                  className="card-definition-term"
+>
+                  population
+</dt>,
+                <dd>
+                  200000
+</dd>,
+              ],
+            ],
+            "className": "card-definition-list",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "name",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "name",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Luke Skywalker",
+              },
+              "ref": null,
+              "rendered": "Luke Skywalker",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "species",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "species",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Human",
+              },
+              "ref": null,
+              "rendered": "Human",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "homeworld",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "homeworld",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Tatooine",
+              },
+              "ref": null,
+              "rendered": "Tatooine",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "language",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "language",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Galactic Basic",
+              },
+              "ref": null,
+              "rendered": "Galactic Basic",
+              "type": "dd",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": "population",
+                "className": "card-definition-term",
+              },
+              "ref": null,
+              "rendered": "population",
+              "type": "dt",
+            },
+            Object {
+              "instance": null,
+              "key": null,
+              "nodeType": "host",
+              "props": Object {
+                "children": 200000,
+              },
+              "ref": null,
+              "rendered": 200000,
+              "type": "dd",
+            },
+          ],
+          "type": "dl",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

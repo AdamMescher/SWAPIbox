@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card/Card';
+import dataBuilder from '../../helper';
 
-const CardContainer = ( arrayOfNounObjects ) => {
-
-  const mappedCards = arrayOfNounObjects.map( noun => {
+const CardContainer = ( {nounObjects} ) => {
+  const mappedCards = nounObjects.map( noun => {
+    noun = dataBuilder(noun);
+    console.log(noun);
     return (
       <li>
-        <Card nounObject={noun} />
+        <Card
+          name={noun.name}
+          url={noun.url}
+          displayData={noun.displayData}
+          key={noun.name} />
       </li>
     )
   })
@@ -21,3 +27,5 @@ const CardContainer = ( arrayOfNounObjects ) => {
     </div>
   )
 }
+
+export default CardContainer;
