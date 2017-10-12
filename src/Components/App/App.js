@@ -27,6 +27,10 @@ class App extends Component {
     })
   }
 
+  getFavoritesData() {
+
+  }
+
   getMovieData(url){
     fetch(url)
       .then( rawData => rawData.json() )
@@ -39,42 +43,60 @@ class App extends Component {
         } ) ).then( response =>  this.setState({movieArray: response}) )
   }
 
+  getPersonData(person) {
+    let tempObject = {
+      name: person.name,
+      url: person.url
+    };
+    return fetch(person.homeworld)
+      .then(homeworldRawData => homeworldRawData.json())
+      .then(homeworldData => {
+        Object.assign(tempObject, {
+          homeworld: homeworldData.name,
+          homeworldPop: homeworldData.population
+        })
+      })
+      .then(totallynewstuff => {
+        const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
+          return fetch(eachSpecies)
+          .then(speciesRawData => speciesRawData.json())
+        })
+        return Promise.all(unresolvedSpeciesPromises)
+        .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies}))
+      })
+  }
+
   getPeopleData(url){
     fetch(url)
     .then(raw => raw.json())
     .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (person, index, array) => { //line XXXX
-        // declare the object to be manipulated - this is the result after promise resolution
-        let tempObject = {
-          name: person.name,
-          url: person.url
-        };
-        // Put the promise at the end of the chain into the unresolvedPromises array (Promise is on line YYYY)
-        return fetch(person.homeworld) //get the data from the current person Homeworld URL
-          .then(homeworldRawData => homeworldRawData.json()) //translate raw data
-          .then(homeworldData => { //add data retrieved into the object
-            Object.assign(tempObject, {
-              homeworld: homeworldData.name,
-              homeworldPop: homeworldData.population
-            }) //return nothing, next .then is a new thing
-          })
-          .then(totallynewstuff => { //start a totally new process in the same chain
-            //Species can be an array of URLs, let's create a promise array of all URLs in the array
-            const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
-              // put promise on line ZZZZ in the array for each species
-              return fetch(eachSpecies) //grab data
-              .then(speciesRawData => speciesRawData.json()) //parse data promise - this is put in the species array // Line ZZZZ
-            })
-            // let's resolve the array of species promises - this will give an array of objects
-            return Promise.all(unresolvedSpeciesPromises) //return this promise chain to line XXXX
-            //create a promise - This promise is not resolved and is placed in the unresolvedPromises array
-            .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies})) // line YYYY
-          })
+      const unresolvedPromises = parsedData.results.map( (person, index, array) => {
+        return this.getPersonData(person)
+        // let tempObject = {
+        //   name: person.name,
+        //   url: person.url
+        // };
+        // return fetch(person.homeworld)
+        //   .then(homeworldRawData => homeworldRawData.json())
+        //   .then(homeworldData => {
+        //     Object.assign(tempObject, {
+        //       homeworld: homeworldData.name,
+        //       homeworldPop: homeworldData.population
+        //     })
+        //   })
+        //   .then(totallynewstuff => {
+        //     const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
+        //       return fetch(eachSpecies)
+        //       .then(speciesRawData => speciesRawData.json())
+        //     })
+        //     return Promise.all(unresolvedSpeciesPromises)
+        //     .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies}))
+        //   })
       })
-      Promise.all(unresolvedPromises) // unresolved promises is currently an array of Object promises
-        .then(promiseAllResults => { //resolve promises to get objects
+      Promise.all(unresolvedPromises)
+        .then(promiseAllResults => {
           this.setState({
-            peopleArray: promiseAllResults //put objects in state
+            peopleArray: promiseAllResults
           })
         })
     })
