@@ -5,7 +5,7 @@ const Button = ( { buttonText, buttonClass, buttonCallback, extraContent } ) => 
   <button
     className={buttonClass}
     onClick={buttonCallback}>
-    {buttonText}<span>{extraContent}</span>
+    {buttonText}<span>  {extraContent}</span>
   </button>
 );
 

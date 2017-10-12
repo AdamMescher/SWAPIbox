@@ -31,7 +31,7 @@
   width: 300px;
   margin: 0 110px 110px 0;
   display: grid;
-  grid-template-rows: 20% 80%;
+  grid-template-rows: 30% 70%;
   grid-template-columns: 1fr;
   border-radius: 4px;
   overflow: none;
@@ -48,6 +48,7 @@
   background-color: #a2a2a2;
   border-bottom: 1px white dotted;
   margin-bottom: 20px;
+  padding-left: 25px;
 }
 
 svg:hover {
@@ -98,6 +99,19 @@ svg:hover {
 
 .favorite-icon {
   height: 60%;
+}
+
+.favorite {
+  transition: 0.4s;
+  box-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 40px #f00,
+    0 0 80px #f00,
+    0 0 90px #f00,
+    0 0 100px #f00,
+    0 0 150px #f00;
 }
 
 .favorite .card-favorite-button{
