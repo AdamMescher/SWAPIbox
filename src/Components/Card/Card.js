@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 
-const Card = ( {name, url, displayData } ) => {
+const Card = ( {name, url, displayData, onCardClick } ) => {
   const mappedNounObject = Object.keys( displayData ).map( key => {
     return(
       <li className="card-list-item">{key.toUpperCase()}: {displayData[key]}</li>
@@ -16,7 +16,7 @@ const Card = ( {name, url, displayData } ) => {
         <h3 className="card-title">{name}</h3>
         <Button
           buttonClass={`${url} card-favorite-button`}
-          buttonText= '' />
+          buttonCallback={ () => onCardClick(url)}/>
       </section>
       <ul className="card-list">
         {mappedNounObject}

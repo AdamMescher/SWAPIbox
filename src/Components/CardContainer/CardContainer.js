@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 import dataBuilder from '../../helper';
 
-const CardContainer = ( {nounObjects} ) => {
+const CardContainer = ( { nounObjects, onCardClick, favoritesArray } ) => {
   const mappedCards = nounObjects.map( noun => {
     noun = dataBuilder(noun);
     return (
@@ -12,7 +12,8 @@ const CardContainer = ( {nounObjects} ) => {
           name={noun.name}
           url={noun.url}
           displayData={noun.displayData}
-          key={noun.name} />
+          key={noun.name}
+          onCardClick={onCardClick} />
       </li>
     )
   })

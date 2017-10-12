@@ -18,9 +18,9 @@ class App extends Component {
   }
 
   cardClicked(url) {
-    let tempFavoritesArray = this.state.favoritesArray.filter( favorite => favorite === url;)
-    if (tempFavoritesArray.length === this.state.favoritesArray) {
-      tempFavoriteArray.push(url);
+    let tempFavoritesArray = this.state.favoritesArray.filter( favorite => favorite !== url)
+    if (tempFavoritesArray.length === this.state.favoritesArray.length) {
+      tempFavoritesArray.push(url);
     }
     this.setState({
       favoritesArray: tempFavoritesArray
@@ -152,14 +152,13 @@ class App extends Component {
 
     return (
       <div className="App">
-          <audio preload={'auto'}>
-            <source src={require('../../Assets/Audio/star-wars-opening-crawl.ogg')} type="audio/ogg" autoPlay={true} />
-            <source src={require('../../Assets/Audio/star-wars-opening-crawl.mp3')} type="audio/mpeg" />
-          </audio>
         <Aside movieData={this.state.movieArray}/>
         <Header numberOfFavorites="0"/>
         <Nav />
-        <CardContainer nounObjects={this.state.planetArray}/>
+        <CardContainer
+          nounObjects={this.state.displayArray}
+          onCardClick={this.cardClicked}
+          favoritesArray={this.state.favoritesArray} />
       </div>
     );
   }
