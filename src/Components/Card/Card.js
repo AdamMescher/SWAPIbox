@@ -4,22 +4,23 @@ import Button from '../Button/Button';
 
 const Card = ( {name, url, displayData } ) => {
   const mappedNounObject = Object.keys( displayData ).map( key => {
-    return ([
-        <dt className="card-definition-term">{key}</dt>,
-        <dd>{displayData[key]}</dd>
-    ])
+    return(
+      <li className="card-list-item">{key}: {displayData[key]}</li>
+    )
   });
 
   return (
-    <div className="card">
+    <div className="card neon">
       <section className="card-header">
+        <li className="ghost"></li>
         <h3 className="card-title">{name}</h3>
         <Button
-        className={url} />
+          buttonClass={`${url} card-favorite-button`}
+          buttonText= '' />
       </section>
-      <dl className="card-definition-list">
+      <ul className="card-list">
         {mappedNounObject}
-      </dl>
+      </ul>
     </div>
   )
 }

@@ -1,0 +1,22 @@
+.main-nav {
+  grid-area: 2 / 2 / 3 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.nav-button  {
+  width: 150px;
+  height: 35px;
+  background-color: #D74E09;
+  color: white;
+  border: none;
+  margin-left: 30px;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.nav-button:hover {
+  background-color: #4a5460;
+}

@@ -1,0 +1,20 @@
+.card-container {
+  height: 100%;
+  grid-area: 3 / 2 / 4 / 3;
+  margin: 1% 5% 0 5%;
+  overflow-y: scroll;
+}
+
+.card-container-card-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-container-title {
+  text-align: center;
+  margin: 0;
+  color: white;
+  margin-bottom: 70px;
+}

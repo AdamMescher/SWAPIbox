@@ -1,0 +1,12 @@
+.aside {
+  height: 100%;
+  color: white;
+  grid-area: 1 / 1 / 4 / 2;
+  padding: 5% 5% 0 5%;
+  margin-bottom: 20px;
+  width: 160%;
+}
+
+.aside-opening-crawl {
+  line-height: 1.3;
+}

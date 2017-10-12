@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import CardContainer from '../CardContainer/CardContainer';
+import Aside from '../Aside/Aside';
+import Header from '../Header/Header';
+import Nav from '../Nav/Nav';
 
 class App extends Component {
   constructor () {
@@ -18,7 +21,7 @@ class App extends Component {
         .then( data => data.results.map( movie => {
           return {
             title: movie.title,
-            date: movie.created,
+            date: movie.created.slice(0, 10),
             text: movie.opening_crawl
           }
         } ) ).then( response =>  this.setState({movieArray: response}) )
@@ -123,8 +126,27 @@ class App extends Component {
   }
 
   render() {
+    if( !this.state.movieArray.length ||
+        !this.state.planetArray.length ||
+        !this.state.peopleArray.length ||
+        !this.state.vehicleArray.length
+      ){
+         return(
+           <div className="loading-container">
+             <img className="almost-there" src={require('../../Assets/Images/almost-there.gif')} alt="Pixel art GIF of X-wing flying through the Death Star trench" />
+           </div>
+         )
+    }
+
     return (
       <div className="App">
+          <audio preload={'auto'}>
+            <source src={require('../../Assets/Audio/star-wars-opening-crawl.ogg')} type="audio/ogg" autoPlay={true} />
+            <source src={require('../../Assets/Audio/star-wars-opening-crawl.mp3')} type="audio/mpeg" />
+          </audio>
+        <Aside movieData={this.state.movieArray}/>
+        <Header numberOfFavorites="0"/>
+        <Nav />
         <CardContainer nounObjects={this.state.planetArray}/>
       </div>
     );
