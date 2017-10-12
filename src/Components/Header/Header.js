@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
       <div></div>
-      <h1 className="header-title">SWAPIbox</h1>
+      <img className="header-title" src={require('../../Assets/Images/swapibox-logo.svg')} alt="swapibox logo"/>
       <Button buttonText="Show Favorites" buttonClass="show-favorites" buttonCallback="" />
     </header>
   )

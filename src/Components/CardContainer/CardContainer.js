@@ -6,7 +6,6 @@ import dataBuilder from '../../helper';
 const CardContainer = ( {nounObjects} ) => {
   const mappedCards = nounObjects.map( noun => {
     noun = dataBuilder(noun);
-    console.log(noun);
     return (
       <li>
         <Card
@@ -21,7 +20,7 @@ const CardContainer = ( {nounObjects} ) => {
   return (
     <div className="card-container">
       <h2 className="card-container-title">Type</h2>
-      <ul>
+      <ul className="card-container-card-list">
         {mappedCards}
       </ul>
     </div>

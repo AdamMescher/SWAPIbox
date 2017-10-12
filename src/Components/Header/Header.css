@@ -1,19 +1,25 @@
 header {
-  display: flex;
-  justify-content: right;
-  align-items: center;
   grid-area: 1 / 2 / 2 / 3;
-  border-bottom: 2px solid grey;
+  border-bottom: 1px solid grey;
   margin: 0 5% 0 5%;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 80% 20%;
 }
 
-.header-title {
-  justify-self: center;
+.header-title{
+  grid-area: 1 / 1 / 4 / 3 ;
+  height: 80px;
+  width: 100%;
+  align-self: center;
+  justify-content: center;
 }
 
 .show-favorites {
-  background-color: white;
   border: none;
+  grid-area: 2 / 2 / 3 / 3 ;
+  border-radius: 6px;
 }
 
 .show-favorites:hover {
