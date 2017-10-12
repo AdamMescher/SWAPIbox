@@ -3,16 +3,55 @@ import CardContainer from '../CardContainer/CardContainer';
 import Aside from '../Aside/Aside';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
+import { getVehicleData, getPersonData, getPlanetData } from '../../apiHelpers';
+import Button from '../Button/Button';
 
 class App extends Component {
   constructor () {
     super();
     this.state = {
       movieArray: [],
-      peopleArray: [],
-      planetArray: [],
-      vehicleArray: []
+      displayArray: [],
+      favoritesArray: []
     }
+    this.cardClicked = this.cardClicked.bind(this);
+    this.displayFavorites = this.displayFavorites.bind(this);
+  }
+
+  cardClicked(url) {
+    let tempFavoritesArray = this.state.favoritesArray.filter( favorite => favorite !== url)
+    if (tempFavoritesArray.length === this.state.favoritesArray.length) {
+      tempFavoritesArray.push(url);
+    }
+    this.setState({
+      favoritesArray: tempFavoritesArray
+    })
+  }
+
+  displayFavorites() {
+    const favoritesUnresolvedPromises = this.state.favoritesArray.map(
+      (favorite) => {
+        return fetch(favorite)
+        .then( rawData => rawData.json())
+        .then(favoriteObject => {
+          if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
+            return getVehicleData(favoriteObject)
+          }
+          if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
+            return getPersonData(favoriteObject);
+          }
+          if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
+            return getPlanetData(favoriteObject);
+          }
+        })
+      }
+    )
+    Promise.all(favoritesUnresolvedPromises)
+    .then(resolvedPromiseArray => {
+      this.setState({
+        displayArray: resolvedPromiseArray
+      })
+    })
   }
 
   getMovieData(url){
@@ -31,105 +70,61 @@ class App extends Component {
     fetch(url)
     .then(raw => raw.json())
     .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (person, index, array) => { //line XXXX
-        // declare the object to be manipulated - this is the result after promise resolution
-        let tempObject = {
-          name: person.name,
-          url: person.url
-        };
-        // Put the promise at the end of the chain into the unresolvedPromises array (Promise is on line YYYY)
-        return fetch(person.homeworld) //get the data from the current person Homeworld URL
-          .then(homeworldRawData => homeworldRawData.json()) //translate raw data
-          .then(homeworldData => { //add data retrieved into the object
-            Object.assign(tempObject, {
-              homeworld: homeworldData.name,
-              homeworldPop: homeworldData.population
-            }) //return nothing, next .then is a new thing
-          })
-          .then(totallynewstuff => { //start a totally new process in the same chain
-            //Species can be an array of URLs, let's create a promise array of all URLs in the array
-            const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
-              // put promise on line ZZZZ in the array for each species
-              return fetch(eachSpecies) //grab data
-              .then(speciesRawData => speciesRawData.json()) //parse data promise - this is put in the species array // Line ZZZZ
-            })
-            // let's resolve the array of species promises - this will give an array of objects
-            return Promise.all(unresolvedSpeciesPromises) //return this promise chain to line XXXX
-            //create a promise - This promise is not resolved and is placed in the unresolvedPromises array
-            .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies})) // line YYYY
-          })
+      const unresolvedPromises = parsedData.results.map( (person) => {
+        return getPersonData(person)
       })
-      Promise.all(unresolvedPromises) // unresolved promises is currently an array of Object promises
-        .then(promiseAllResults => { //resolve promises to get objects
+      Promise.all(unresolvedPromises)
+        .then(promiseAllResults => {
           this.setState({
-            peopleArray: promiseAllResults //put objects in state
+            displayArray: promiseAllResults
           })
         })
     })
   }
 
-  getPlanetData(url){
+  getPlanetsData(url){
     fetch(url)
     .then(raw => raw.json())
+    .catch(err => { console.log(`danger will robinson: ${err}`);})
     .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (planet, index, array) => {
-        let tempObject = {
-          name: planet.name,
-          terrain: planet.terrain,
-          population: planet.population,
-          climate: planet.climate,
-          url: planet.url
-        };
-        const unresolvedResidentPromises = planet.residents.map((eachResident) => {
-          return fetch(eachResident)
-          .then(speciesRawData => speciesRawData.json())
-        })
-        return Promise.all(unresolvedResidentPromises)
-        .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
+      const unresolvedPromises = parsedData.results.map( (planet) => {
+        return getPlanetData(planet);
           })
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            planetArray: promiseAllResults
+            displayArray: promiseAllResults
           })
         })
     })
   }
 
-  getVehicleData(url) {
+  getVehiclesData(url) {
     fetch(url)
     .then(rawVehiclesData => rawVehiclesData.json())
     .then(vehiclesData => {
       return vehiclesData.results.map( (vehicle) => {
-        return Object.assign({}, {
-          name: vehicle.name,
-          model: vehicle.model,
-          class: vehicle.vehicle_class,
-          passengers: vehicle.passengers,
-          url: vehicle.url
-        })
-
+        return getVehicleData(vehicle);
       })
     })
     .then(vehiclesResolvedPromises => {
       this.setState({
-        vehicleArray: vehiclesResolvedPromises
+        displayArray: vehiclesResolvedPromises
       })
     });
   }
 
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    this.getPeopleData('https://swapi.co/api/people');
-    this.getPlanetData('https://swapi.co/api/planets');
-    this.getVehicleData('https://swapi.co/api/vehicles');
+    // this.getPlanetsData('https://swapi.co/api/planets')
+    this.getVehiclesData('https://swapi.co/api/vehicles');
+    // this.getPeopleData('https://swapi.co/api/people')
+    // this.displayFavorites()
   }
 
   render() {
     if( !this.state.movieArray.length ||
-        !this.state.planetArray.length ||
-        !this.state.peopleArray.length ||
-        !this.state.vehicleArray.length
+        !this.state.displayArray.length
       ){
          return(
            <div className="loading-container">
@@ -140,14 +135,16 @@ class App extends Component {
 
     return (
       <div className="App">
-          <audio preload={'auto'}>
-            <source src={require('../../Assets/Audio/star-wars-opening-crawl.ogg')} type="audio/ogg" autoPlay={true} />
-            <source src={require('../../Assets/Audio/star-wars-opening-crawl.mp3')} type="audio/mpeg" />
-          </audio>
         <Aside movieData={this.state.movieArray}/>
-        <Header numberOfFavorites="0"/>
+        <Header
+          numberOfFavorites={this.state.favoritesArray.length}
+          favoriteButtonClick={this.displayFavorites}
+          />
         <Nav />
-        <CardContainer nounObjects={this.state.planetArray}/>
+        <CardContainer
+          nounObjects={this.state.displayArray}
+          onCardClick={this.cardClicked}
+          favoritesArray={this.state.favoritesArray} />
       </div>
     );
   }
