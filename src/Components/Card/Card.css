@@ -25,14 +25,14 @@
 
 .card {
   background-color: #363636;
-  height: 415px;
+  height: 450px;
   width: 300px;
   margin: 0 110px 110px 0;
   display: grid;
   grid-template-rows: 20% 80%;
   grid-template-columns: 1fr;
   border-radius: 4px;
-  overflow-y: scroll;
+  overflow: none;
   border: 1px solid grey;
 }
 

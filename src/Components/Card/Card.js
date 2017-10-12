@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 const Card = ( {name, url, displayData } ) => {
   const mappedNounObject = Object.keys( displayData ).map( key => {
     return(
-      <li className="card-list-item">{key}: {displayData[key]}</li>
+      <li className="card-list-item">{key.toUpperCase()}: {displayData[key]}</li>
     )
   });
 
