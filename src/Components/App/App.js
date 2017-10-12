@@ -134,7 +134,7 @@ class App extends Component {
       fetch(url)
         .then(raw => raw.json())
         .catch(error => {
-          console.log(`danger will robinson: ${ error }`);
+          alert(`danger will robinson: ${ error }`);
         })
         .then(parsedData => {
           const unresolvedPromises = parsedData.results.map( (planet) => {
