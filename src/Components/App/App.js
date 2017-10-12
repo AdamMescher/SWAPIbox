@@ -11,8 +11,20 @@ class App extends Component {
       movieArray: [],
       peopleArray: [],
       planetArray: [],
-      vehicleArray: []
+      vehicleArray: [],
+      favoritesArray: []
     }
+    this.cardClicked = this.cardClicked.bind(this);
+  }
+
+  cardClicked(url) {
+    let tempFavoritesArray = this.state.favoritesArray.filter( favorite => favorite === url;)
+    if (tempFavoritesArray.length === this.state.favoritesArray) {
+      tempFavoriteArray.push(url);
+    }
+    this.setState({
+      favoritesArray: tempFavoritesArray
+    })
   }
 
   getMovieData(url){
