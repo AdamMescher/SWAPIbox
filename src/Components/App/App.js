@@ -82,54 +82,78 @@ class App extends Component {
   }
 
   getPeopleData(url){
-    fetch(url)
-    .then(raw => raw.json())
-    .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (person) => {
-        return getPersonData(person)
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        displayArray: JSON.parse(localStorage[url]),
+        displayArrayType: 'People'
       })
-      Promise.all(unresolvedPromises)
-        .then(promiseAllResults => {
-          this.setState({
-            displayArray: promiseAllResults,
-            displayArrayType: 'People'
-          })
+    } else {
+      fetch(url)
+      .then(raw => raw.json())
+      .then(parsedData => {
+        const unresolvedPromises = parsedData.results.map( (person) => {
+          return getPersonData(person)
         })
-    })
+        Promise.all(unresolvedPromises)
+          .then(promiseAllResults => {
+            localStorage.setItem(url, JSON.stringify(promiseAllResults))
+            this.setState({
+              displayArray: promiseAllResults,
+              displayArrayType: 'People'
+            })
+          })
+      })
+    }
   }
 
   getPlanetsData(url){
-    fetch(url)
-    .then(raw => raw.json())
-    .catch(err => { console.log(`danger will robinson: ${err}`);})
-    .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (planet) => {
-        return getPlanetData(planet);
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        displayArray: JSON.parse(localStorage[url]),
+        displayArrayType: 'Planets'
+      })
+    } else {
+      fetch(url)
+      .then(raw => raw.json())
+      .catch(err => { console.log(`danger will robinson: ${err}`);})
+      .then(parsedData => {
+        const unresolvedPromises = parsedData.results.map( (planet) => {
+          return getPlanetData(planet);
+            })
+        Promise.all(unresolvedPromises)
+          .then(promiseAllResults => {
+            localStorage.setItem(url, JSON.stringify(promiseAllResults))
+            this.setState({
+              displayArray: promiseAllResults,
+              displayArrayType: 'Planets'
+            })
           })
-      Promise.all(unresolvedPromises)
-        .then(promiseAllResults => {
-          this.setState({
-            displayArray: promiseAllResults,
-            displayArrayType: 'Planets'
-          })
-        })
-    })
+      })
+    }
   }
 
   getVehiclesData(url) {
-    fetch(url)
-    .then(rawVehiclesData => rawVehiclesData.json())
-    .then(vehiclesData => {
-      return vehiclesData.results.map( (vehicle) => {
-        return getVehicleData(vehicle);
-      })
-    })
-    .then(vehiclesResolvedPromises => {
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
       this.setState({
-        displayArray: vehiclesResolvedPromises,
+        displayArray: JSON.parse(localStorage[url]),
         displayArrayType: 'Vehicles'
       })
-    });
+    } else {
+      fetch(url)
+      .then(rawVehiclesData => rawVehiclesData.json())
+      .then(vehiclesData => {
+        return vehiclesData.results.map( (vehicle) => {
+          return getVehicleData(vehicle);
+        })
+      })
+      .then(vehiclesResolvedPromises => {
+        localStorage.setItem(url, JSON.stringify(vehiclesResolvedPromises))
+        this.setState({
+          displayArray: vehiclesResolvedPromises,
+          displayArrayType: 'Vehicles'
+        })
+      });
+    }
   }
 
   componentDidMount() {
