@@ -4,7 +4,6 @@ import Aside from '../Aside/Aside';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
 import { getVehicleData, getPersonData, getPlanetData } from '../../apiHelpers';
-import Button from '../Button/Button';
 
 class App extends Component {
   constructor () {
