@@ -3,11 +3,11 @@ import { shallow, mount } from 'enzyme';
 import Card from './Card';
 
 describe( `CARD`, () => {
-  let wrapper
-  let card
+  let wrapper;
+  let card;
 
   beforeEach( () => {
-    wrapperPerson = shallow(
+    wrapperPerson = shallow (
       <Card
         nounObject={ {
           name: 'Luke Skywalker',
@@ -16,9 +16,9 @@ describe( `CARD`, () => {
           language: 'Galactic Basic',
           population: 200000
         } }
-      />)
+      />);
 
-    wrapperPlanet = shallow(
+    wrapperPlanet = shallow (
       <Card
         nounObject={{
           name: 'Tatooine',
@@ -38,23 +38,23 @@ describe( `CARD`, () => {
             "Cliegg Lars"
           ]
         }}
-      />)
-    });
+      />);
+  });
 
-    wrapperVehicle = shallow(
-      <Card
-        nounObject={ {
-          name: 'Sand Crawler',
-          model: 'Digger Crawler',
-          class: 'wheeled',
-          passengers: 30
-        } }
-      />)
+  wrapperVehicle = shallow(
+    <Card
+      nounObject={ {
+        name: 'Sand Crawler',
+        model: 'Digger Crawler',
+        class: 'wheeled',
+        passengers: 30
+      } }
+    />);
 
   it( `should exist`, () => {
-    console.log(wrapperPerson);
+
   });
   it( ``, () => {});
   it( ``, () => {});
   it( ``, () => {});
-})
+});

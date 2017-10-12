@@ -4,14 +4,16 @@ import Button from '../Button/Button';
 
 const Card = ( {name, url, displayData, onCardClick, isFavorite } ) => {
   const mappedNounObject = Object.keys( displayData ).map( key => {
-    return(
+    return (
       <li
         className="card-list-item"
         key={`${key}-item`}
-        >{key.toUpperCase()}: {displayData[key]}</li>
-    )
+      >{key.toUpperCase()}: {displayData[key]}</li>
+    );
   });
-  const appliedClasses = isFavorite === 'favorite' ? 'card neon favorite' : 'card neon'
+  const appliedClasses =
+    isFavorite === 'favorite' ? 'card neon favorite' : 'card neon';
+
   return (
     <div className={appliedClasses}>
       <section className="card-header">
@@ -25,8 +27,8 @@ const Card = ( {name, url, displayData, onCardClick, isFavorite } ) => {
         {mappedNounObject}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 Card.propTypes = {
   name: PropTypes.string,
@@ -34,6 +36,6 @@ Card.propTypes = {
   displayData: PropTypes.object,
   onCardClick: PropTypes.func,
   isFavorite: PropTypes.string
-}
+};
 
 export default Card;

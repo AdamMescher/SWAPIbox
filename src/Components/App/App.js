@@ -12,87 +12,91 @@ class App extends Component {
       movieArray: [],
       displayArray: [],
       favoritesArray: [],
-      displayArrayType: '',
-    }
+      displayArrayType: ''
+    };
     this.cardClicked = this.cardClicked.bind(this);
     this.displayFavorites = this.displayFavorites.bind(this);
     this.handleSectionClick = this.handleSectionClick.bind(this);
   }
 
   cardClicked(url) {
-    let tempFavoritesArray = this.state.favoritesArray.filter( favorite => favorite !== url)
+    let tempFavoritesArray =
+      this.state.favoritesArray.filter( favorite => favorite !== url);
     if (tempFavoritesArray.length === this.state.favoritesArray.length) {
       tempFavoritesArray.push(url);
     }
     this.setState({
       favoritesArray: tempFavoritesArray
-    })
+    });
   }
 
   displayFavorites() {
     const favoritesUnresolvedPromises = this.state.favoritesArray.map(
       (favorite) => {
         if (Object.keys(localStorage).find( (key) => key===favorite ) ) {
-          return JSON.parse(localStorage[favorite])
-          } else {
+          return JSON.parse(localStorage[favorite]);
+        } else {
           return fetch(favorite)
-          .then( rawData => rawData.json())
-          .then(favoriteObject => {
-            if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
-              return getVehicleData(favoriteObject)
-            }
-            if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
-              return getPersonData(favoriteObject);
-            }
-            if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
-              return getPlanetData(favoriteObject);
-            }
-          })
+            .then( rawData => rawData.json())
+            .then(favoriteObject => {
+              if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
+                return getVehicleData(favoriteObject);
+              }
+              if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
+                return getPersonData(favoriteObject);
+              }
+              if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
+                return getPlanetData(favoriteObject);
+              }
+            });
         }
       }
-    )
+    );
     Promise.all(favoritesUnresolvedPromises)
-    .then(resolvedPromiseArray => {
-      resolvedPromiseArray.forEach( (favoriteObject) => {
-        if (!localStorage[favoriteObject.url]) {
-          localStorage.setItem(favoriteObject.url, JSON.stringify(favoriteObject))
-        }
+      .then(resolvedPromiseArray => {
+        resolvedPromiseArray.forEach( (favoriteObject) => {
+          if (!localStorage[favoriteObject.url]) {
+            localStorage.setItem(
+              favoriteObject.url,
+              JSON.stringify(favoriteObject)
+            );
+          }
+        });
+        this.setState({
+          displayArray: resolvedPromiseArray,
+          displayArrayType: 'Favorites'
+        });
       });
-      this.setState({
-        displayArray: resolvedPromiseArray,
-        displayArrayType: 'Favorites'
-      })
-    })
   }
 
   handleSectionClick(section) {
     if ( section === "people" ) {
-      this.getPeopleData('https://swapi.co/api/people/')
+      this.getPeopleData('https://swapi.co/api/people/');
     }
     if ( section === "planets" ) {
-      this.getPlanetsData('https://swapi.co/api/planets/')
+      this.getPlanetsData('https://swapi.co/api/planets/');
     }
     if ( section === "vehicles" ) {
-      this.getVehiclesData('https://swapi.co/api/vehicles/')
+      this.getVehiclesData('https://swapi.co/api/vehicles/');
     }
   }
 
   getMovieData(url){
     if (Object.keys(localStorage).find( (key) => key===url ) ) {
       this.setState({
-        movieArray: JSON.parse(localStorage[url]),
-      })
+        movieArray: JSON.parse(localStorage[url])
+      });
     } else {
       fetch(url)
         .then( rawData => rawData.json() )
-          .then( data => data.results.map( movie => {
-            return {
-              title: movie.title,
-              date: movie.created.slice(0, 10),
-              text: movie.opening_crawl
-            }
-          } ) ).then( response =>  this.setState({movieArray: response}) )
-      }
+        .then( parsedData => parsedData.results.map( movie => {
+          return {
+            title: movie.title,
+            date: movie.created.slice(0, 10),
+            text: movie.opening_crawl
+          };
+        } ) ).then( response =>  this.setState({movieArray: response}) );
+    }
   }
 
   getPeopleData(url){
@@ -100,23 +104,23 @@ class App extends Component {
       this.setState({
         displayArray: JSON.parse(localStorage[url]),
         displayArrayType: 'People'
-      })
+      });
     } else {
       fetch(url)
-      .then(raw => raw.json())
-      .then(parsedData => {
-        const unresolvedPromises = parsedData.results.map( (person) => {
-          return getPersonData(person)
-        })
-        Promise.all(unresolvedPromises)
-          .then(promiseAllResults => {
-            localStorage.setItem(url, JSON.stringify(promiseAllResults))
-            this.setState({
-              displayArray: promiseAllResults,
-              displayArrayType: 'People'
-            })
-          })
-      })
+        .then(raw => raw.json())
+        .then(parsedData => {
+          const unresolvedPromises = parsedData.results.map( (person) => {
+            return getPersonData(person);
+          });
+          Promise.all(unresolvedPromises)
+            .then(promiseAllResults => {
+              localStorage.setItem(url, JSON.stringify(promiseAllResults));
+              this.setState({
+                displayArray: promiseAllResults,
+                displayArrayType: 'People'
+              });
+            });
+        });
     }
   }
 
@@ -125,24 +129,26 @@ class App extends Component {
       this.setState({
         displayArray: JSON.parse(localStorage[url]),
         displayArrayType: 'Planets'
-      })
+      });
     } else {
       fetch(url)
-      .then(raw => raw.json())
-      .catch(err => { console.log(`danger will robinson: ${err}`);})
-      .then(parsedData => {
-        const unresolvedPromises = parsedData.results.map( (planet) => {
-          return getPlanetData(planet);
-            })
-        Promise.all(unresolvedPromises)
-          .then(promiseAllResults => {
-            localStorage.setItem(url, JSON.stringify(promiseAllResults))
-            this.setState({
-              displayArray: promiseAllResults,
-              displayArrayType: 'Planets'
-            })
-          })
-      })
+        .then(raw => raw.json())
+        .catch(error => {
+          console.log(`danger will robinson: ${ error }`);
+        })
+        .then(parsedData => {
+          const unresolvedPromises = parsedData.results.map( (planet) => {
+            return getPlanetData(planet);
+          });
+          Promise.all(unresolvedPromises)
+            .then(promiseAllResults => {
+              localStorage.setItem(url, JSON.stringify(promiseAllResults));
+              this.setState({
+                displayArray: promiseAllResults,
+                displayArrayType: 'Planets'
+              });
+            });
+        });
     }
   }
 
@@ -151,22 +157,22 @@ class App extends Component {
       this.setState({
         displayArray: JSON.parse(localStorage[url]),
         displayArrayType: 'Vehicles'
-      })
+      });
     } else {
       fetch(url)
-      .then(rawVehiclesData => rawVehiclesData.json())
-      .then(vehiclesData => {
-        return vehiclesData.results.map( (vehicle) => {
-          return getVehicleData(vehicle);
+        .then(rawVehiclesData => rawVehiclesData.json())
+        .then(vehiclesData => {
+          return vehiclesData.results.map( (vehicle) => {
+            return getVehicleData(vehicle);
+          });
         })
-      })
-      .then(vehiclesResolvedPromises => {
-        localStorage.setItem(url, JSON.stringify(vehiclesResolvedPromises))
-        this.setState({
-          displayArray: vehiclesResolvedPromises,
-          displayArrayType: 'Vehicles'
-        })
-      });
+        .then(vehiclesResolvedPromises => {
+          localStorage.setItem(url, JSON.stringify(vehiclesResolvedPromises));
+          this.setState({
+            displayArray: vehiclesResolvedPromises,
+            displayArrayType: 'Vehicles'
+          });
+        });
     }
   }
 
@@ -176,14 +182,18 @@ class App extends Component {
   }
 
   render() {
-    if( !this.state.movieArray.length ||
+    if ( !this.state.movieArray.length ||
         !this.state.displayArray.length
-      ){
-         return(
-           <div className="loading-container">
-             <img className="almost-there" src={require('../../Assets/Images/almost-there.gif')} alt="Pixel art GIF of X-wing flying through the Death Star trench" />
-           </div>
-         )
+    ){
+      return (
+        <div className="loading-container">
+          <img
+            className="almost-there"
+            src={require('../../Assets/Images/almost-there.gif')}
+            alt={`Pixel art GIF of X-wing
+              flying through the Death Star trench`} />
+        </div>
+      );
     }
 
     return (
