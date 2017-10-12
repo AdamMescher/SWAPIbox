@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 import dataBuilder from '../../helper';
 
+const cardFavoriteChecker = (favoritesArray, card) => {
+  if (favoritesArray.find( favorite => card.url === favorite)) {
+    return 'favorite'
+  }
+}
+
 const CardContainer = ( { nounObjects, onCardClick, favoritesArray } ) => {
   const mappedCards = nounObjects.map( noun => {
     noun = dataBuilder(noun);
@@ -13,7 +19,8 @@ const CardContainer = ( { nounObjects, onCardClick, favoritesArray } ) => {
           url={noun.url}
           displayData={noun.displayData}
           key={noun.name}
-          onCardClick={onCardClick} />
+          onCardClick={onCardClick}
+          isFavorite={cardFavoriteChecker(favoritesArray, noun)}/>
       </li>
     )
   })
