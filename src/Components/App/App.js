@@ -33,23 +33,32 @@ class App extends Component {
   displayFavorites() {
     const favoritesUnresolvedPromises = this.state.favoritesArray.map(
       (favorite) => {
-        return fetch(favorite)
-        .then( rawData => rawData.json())
-        .then(favoriteObject => {
-          if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
-            return getVehicleData(favoriteObject)
-          }
-          if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
-            return getPersonData(favoriteObject);
-          }
-          if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
-            return getPlanetData(favoriteObject);
-          }
-        })
+        if (Object.keys(localStorage).find( (key) => key===favorite ) ) {
+          return JSON.parse(localStorage[favorite])
+          } else {
+          return fetch(favorite)
+          .then( rawData => rawData.json())
+          .then(favoriteObject => {
+            if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
+              return getVehicleData(favoriteObject)
+            }
+            if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
+              return getPersonData(favoriteObject);
+            }
+            if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
+              return getPlanetData(favoriteObject);
+            }
+          })
+        }
       }
     )
     Promise.all(favoritesUnresolvedPromises)
     .then(resolvedPromiseArray => {
+      resolvedPromiseArray.forEach( (favoriteObject) => {
+        if (!localStorage[favoriteObject.url]) {
+          localStorage.setItem(favoriteObject.url, JSON.stringify(favoriteObject))
+        }
+      });
       this.setState({
         displayArray: resolvedPromiseArray,
         displayArrayType: 'Favorites'
@@ -158,10 +167,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    // this.getPlanetsData('https://swapi.co/api/planets')
     this.getVehiclesData('https://swapi.co/api/vehicles');
-    // this.getPeopleData('https://swapi.co/api/people')
-    // this.displayFavorites()
   }
 
   render() {
