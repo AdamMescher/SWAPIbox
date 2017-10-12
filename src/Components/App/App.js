@@ -126,18 +126,29 @@ class App extends Component {
     })
   }
 
+  getVehicleData(vehicle) {
+    return Object.assign({}, {
+      name: vehicle.name,
+      model: vehicle.model,
+      class: vehicle.vehicle_class,
+      passengers: vehicle.passengers,
+      url: vehicle.url
+    })
+  }
+
   getVehiclesData(url) {
     fetch(url)
     .then(rawVehiclesData => rawVehiclesData.json())
     .then(vehiclesData => {
       return vehiclesData.results.map( (vehicle) => {
-        return Object.assign({}, {
-          name: vehicle.name,
-          model: vehicle.model,
-          class: vehicle.vehicle_class,
-          passengers: vehicle.passengers,
-          url: vehicle.url
-        })
+        return this.getVehicleData(vehicle);
+        // return Object.assign({}, {
+        //   name: vehicle.name,
+        //   model: vehicle.model,
+        //   class: vehicle.vehicle_class,
+        //   passengers: vehicle.passengers,
+        //   url: vehicle.url
+        // })
 
       })
     })
@@ -150,8 +161,8 @@ class App extends Component {
 
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    this.getPlanetsData('https://swapi.co/api/planets')
-    // this.getVehiclesData('https://swapi.co/api/vehicles');
+    // this.getPlanetsData('https://swapi.co/api/planets')
+    this.getVehiclesData('https://swapi.co/api/vehicles');
     // this.getPeopleData('https://swapi.co/api/people')
   }
 
