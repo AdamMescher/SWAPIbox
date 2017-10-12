@@ -18,10 +18,24 @@ header {
 
 .show-favorites {
   background-color: white;
-  color: white;
+  color: black;
   border: none;
   grid-area: 2 / 2 / 3 / 3 ;
   border-radius: 4px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-favorites span {
+  white-space: pre;
+  background-color: black;
+  padding: 3px 7px 3px 7px;
+  color: white;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .show-favorites:hover{

@@ -28,7 +28,7 @@ const CardContainer = ( { nounObjects, onCardClick, favoritesArray, displayArray
 
   return (
     <div className="card-container">
-      <h2 className="card-container-title">{displayArrayType}</h2>
+      <h2 className="card-container-title">{displayArrayType.toUpperCase()}</h2>
       <ul className="card-container-card-list">
         {mappedCards}
       </ul>
