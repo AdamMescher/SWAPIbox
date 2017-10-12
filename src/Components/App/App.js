@@ -9,9 +9,7 @@ class App extends Component {
     super();
     this.state = {
       movieArray: [],
-      peopleArray: [],
-      planetArray: [],
-      vehicleArray: [],
+      displayArray: [],
       favoritesArray: []
     }
     this.cardClicked = this.cardClicked.bind(this);
@@ -70,67 +68,65 @@ class App extends Component {
     fetch(url)
     .then(raw => raw.json())
     .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (person, index, array) => {
+      const unresolvedPromises = parsedData.results.map( (person) => {
         return this.getPersonData(person)
-        // let tempObject = {
-        //   name: person.name,
-        //   url: person.url
-        // };
-        // return fetch(person.homeworld)
-        //   .then(homeworldRawData => homeworldRawData.json())
-        //   .then(homeworldData => {
-        //     Object.assign(tempObject, {
-        //       homeworld: homeworldData.name,
-        //       homeworldPop: homeworldData.population
-        //     })
-        //   })
-        //   .then(totallynewstuff => {
-        //     const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
-        //       return fetch(eachSpecies)
-        //       .then(speciesRawData => speciesRawData.json())
-        //     })
-        //     return Promise.all(unresolvedSpeciesPromises)
-        //     .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies}))
-        //   })
       })
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            peopleArray: promiseAllResults
+            displayArray: promiseAllResults
           })
         })
     })
   }
 
-  getPlanetData(url){
+  getPlanetData(planet) {
+    let tempObject = {
+      name: planet.name,
+      terrain: planet.terrain,
+      population: planet.population,
+      climate: planet.climate,
+      url: planet.url
+    };
+    const unresolvedResidentPromises = planet.residents.map((eachResident) => {
+      return fetch(eachResident)
+      .then(speciesRawData => speciesRawData.json())
+    })
+    return Promise.all(unresolvedResidentPromises)
+    .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
+  }
+
+  getPlanetsData(url){
     fetch(url)
     .then(raw => raw.json())
+    .catch(err => { console.log(`danger will robinson: ${err}`);})
     .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (planet, index, array) => {
-        let tempObject = {
-          name: planet.name,
-          terrain: planet.terrain,
-          population: planet.population,
-          climate: planet.climate,
-          url: planet.url
-        };
-        const unresolvedResidentPromises = planet.residents.map((eachResident) => {
-          return fetch(eachResident)
-          .then(speciesRawData => speciesRawData.json())
-        })
-        return Promise.all(unresolvedResidentPromises)
-        .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
+      const unresolvedPromises = parsedData.results.map( (planet) => {
+        return this.getPlanetData(planet);
+        // let tempObject = {
+        //   name: planet.name,
+        //   terrain: planet.terrain,
+        //   population: planet.population,
+        //   climate: planet.climate,
+        //   url: planet.url
+        // };
+        // const unresolvedResidentPromises = planet.residents.map((eachResident) => {
+        //   return fetch(eachResident)
+        //   .then(speciesRawData => speciesRawData.json())
+        // })
+        // return Promise.all(unresolvedResidentPromises)
+        // .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
           })
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            planetArray: promiseAllResults
+            displayArray: promiseAllResults
           })
         })
     })
   }
 
-  getVehicleData(url) {
+  getVehiclesData(url) {
     fetch(url)
     .then(rawVehiclesData => rawVehiclesData.json())
     .then(vehiclesData => {
@@ -147,16 +143,16 @@ class App extends Component {
     })
     .then(vehiclesResolvedPromises => {
       this.setState({
-        vehicleArray: vehiclesResolvedPromises
+        displayArray: vehiclesResolvedPromises
       })
     });
   }
 
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    this.getPeopleData('https://swapi.co/api/people');
-    this.getPlanetData('https://swapi.co/api/planets');
-    this.getVehicleData('https://swapi.co/api/vehicles');
+    this.getPlanetsData('https://swapi.co/api/planets')
+    // this.getVehiclesData('https://swapi.co/api/vehicles');
+    // this.getPeopleData('https://swapi.co/api/people')
   }
 
   render() {
