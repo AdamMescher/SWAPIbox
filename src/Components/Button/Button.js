@@ -15,5 +15,5 @@ Button.propTypes = {
   buttonText: PropTypes.string,
   buttonClass: PropTypes.string,
   buttonCallback: PropTypes.func,
-  extraContent: PropTypes.string
+  extraContent: PropTypes.number
 };

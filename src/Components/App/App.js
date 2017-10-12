@@ -3,6 +3,8 @@ import CardContainer from '../CardContainer/CardContainer';
 import Aside from '../Aside/Aside';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
+import { getVehicleData, getPersonData, getPlanetData } from '../../apiHelpers';
+import Button from '../Button/Button';
 
 class App extends Component {
   constructor () {
@@ -13,6 +15,7 @@ class App extends Component {
       favoritesArray: []
     }
     this.cardClicked = this.cardClicked.bind(this);
+    this.displayFavorites = this.displayFavorites.bind(this);
   }
 
   cardClicked(url) {
@@ -25,8 +28,30 @@ class App extends Component {
     })
   }
 
-  getFavoritesData() {
-
+  displayFavorites() {
+    const favoritesUnresolvedPromises = this.state.favoritesArray.map(
+      (favorite) => {
+        return fetch(favorite)
+        .then( rawData => rawData.json())
+        .then(favoriteObject => {
+          if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
+            return getVehicleData(favoriteObject)
+          }
+          if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
+            return getPersonData(favoriteObject);
+          }
+          if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
+            return getPlanetData(favoriteObject);
+          }
+        })
+      }
+    )
+    Promise.all(favoritesUnresolvedPromises)
+    .then(resolvedPromiseArray => {
+      this.setState({
+        displayArray: resolvedPromiseArray
+      })
+    })
   }
 
   getMovieData(url){
@@ -41,35 +66,12 @@ class App extends Component {
         } ) ).then( response =>  this.setState({movieArray: response}) )
   }
 
-  getPersonData(person) {
-    let tempObject = {
-      name: person.name,
-      url: person.url
-    };
-    return fetch(person.homeworld)
-      .then(homeworldRawData => homeworldRawData.json())
-      .then(homeworldData => {
-        Object.assign(tempObject, {
-          homeworld: homeworldData.name,
-          homeworldPop: homeworldData.population
-        })
-      })
-      .then(totallynewstuff => {
-        const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
-          return fetch(eachSpecies)
-          .then(speciesRawData => speciesRawData.json())
-        })
-        return Promise.all(unresolvedSpeciesPromises)
-        .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies}))
-      })
-  }
-
   getPeopleData(url){
     fetch(url)
     .then(raw => raw.json())
     .then(parsedData => {
       const unresolvedPromises = parsedData.results.map( (person) => {
-        return this.getPersonData(person)
+        return getPersonData(person)
       })
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
@@ -78,22 +80,6 @@ class App extends Component {
           })
         })
     })
-  }
-
-  getPlanetData(planet) {
-    let tempObject = {
-      name: planet.name,
-      terrain: planet.terrain,
-      population: planet.population,
-      climate: planet.climate,
-      url: planet.url
-    };
-    const unresolvedResidentPromises = planet.residents.map((eachResident) => {
-      return fetch(eachResident)
-      .then(speciesRawData => speciesRawData.json())
-    })
-    return Promise.all(unresolvedResidentPromises)
-    .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
   }
 
   getPlanetsData(url){
@@ -102,20 +88,7 @@ class App extends Component {
     .catch(err => { console.log(`danger will robinson: ${err}`);})
     .then(parsedData => {
       const unresolvedPromises = parsedData.results.map( (planet) => {
-        return this.getPlanetData(planet);
-        // let tempObject = {
-        //   name: planet.name,
-        //   terrain: planet.terrain,
-        //   population: planet.population,
-        //   climate: planet.climate,
-        //   url: planet.url
-        // };
-        // const unresolvedResidentPromises = planet.residents.map((eachResident) => {
-        //   return fetch(eachResident)
-        //   .then(speciesRawData => speciesRawData.json())
-        // })
-        // return Promise.all(unresolvedResidentPromises)
-        // .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
+        return getPlanetData(planet);
           })
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
@@ -126,30 +99,12 @@ class App extends Component {
     })
   }
 
-  getVehicleData(vehicle) {
-    return Object.assign({}, {
-      name: vehicle.name,
-      model: vehicle.model,
-      class: vehicle.vehicle_class,
-      passengers: vehicle.passengers,
-      url: vehicle.url
-    })
-  }
-
   getVehiclesData(url) {
     fetch(url)
     .then(rawVehiclesData => rawVehiclesData.json())
     .then(vehiclesData => {
       return vehiclesData.results.map( (vehicle) => {
-        return this.getVehicleData(vehicle);
-        // return Object.assign({}, {
-        //   name: vehicle.name,
-        //   model: vehicle.model,
-        //   class: vehicle.vehicle_class,
-        //   passengers: vehicle.passengers,
-        //   url: vehicle.url
-        // })
-
+        return getVehicleData(vehicle);
       })
     })
     .then(vehiclesResolvedPromises => {
@@ -160,10 +115,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getMovieData('https://swapi.co/api/films');
+    // this.getMovieData('https://swapi.co/api/films');
     // this.getPlanetsData('https://swapi.co/api/planets')
     this.getVehiclesData('https://swapi.co/api/vehicles');
     // this.getPeopleData('https://swapi.co/api/people')
+    // this.displayFavorites()
   }
 
   render() {
@@ -184,6 +140,11 @@ class App extends Component {
         <Aside movieData={this.state.movieArray}/>
         <Header numberOfFavorites="0"/>
         <Nav />
+        <Button
+          buttonClass='favorites-button'
+          buttonCallback={this.displayFavorites}
+          buttonText='Display Favorites'
+          extraContent={this.state.favoritesArray.length}/>
         <CardContainer
           nounObjects={this.state.displayArray}
           onCardClick={this.cardClicked}

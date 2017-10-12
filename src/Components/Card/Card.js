@@ -5,7 +5,10 @@ import Button from '../Button/Button';
 const Card = ( {name, url, displayData, onCardClick, isFavorite } ) => {
   const mappedNounObject = Object.keys( displayData ).map( key => {
     return(
-      <li className="card-list-item">{key.toUpperCase()}: {displayData[key]}</li>
+      <li
+        className="card-list-item"
+        key={`${key}-item`}
+        >{key.toUpperCase()}: {displayData[key]}</li>
     )
   });
 
@@ -23,6 +26,14 @@ const Card = ( {name, url, displayData, onCardClick, isFavorite } ) => {
       </ul>
     </div>
   )
+}
+
+Card.propTypes = {
+  name: PropTypes.string,
+  url: PropTypes.string,
+  displayData: PropTypes.object,
+  onCardClick: PropTypes.func,
+  isFavorite: PropTypes.string
 }
 
 export default Card;
