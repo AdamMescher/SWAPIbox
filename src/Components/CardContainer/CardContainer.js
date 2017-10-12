@@ -9,7 +9,7 @@ const cardFavoriteChecker = (favoritesArray, card) => {
   }
 }
 
-const CardContainer = ( { nounObjects, onCardClick, favoritesArray } ) => {
+const CardContainer = ( { nounObjects, onCardClick, favoritesArray, displayArrayType } ) => {
   const mappedCards = nounObjects.map( (noun, index) => {
     noun = dataBuilder(noun);
     return (
@@ -28,7 +28,7 @@ const CardContainer = ( { nounObjects, onCardClick, favoritesArray } ) => {
 
   return (
     <div className="card-container">
-      <h2 className="card-container-title">Type</h2>
+      <h2 className="card-container-title">{displayArrayType}</h2>
       <ul className="card-container-card-list">
         {mappedCards}
       </ul>
@@ -39,7 +39,8 @@ const CardContainer = ( { nounObjects, onCardClick, favoritesArray } ) => {
 CardContainer.propTypes = {
   nounObjects: PropTypes.array,
   onCardClick: PropTypes.func,
-  favoritesArray: PropTypes.array
+  favoritesArray: PropTypes.array,
+  displayArrayType: PropTypes.string
 }
 
 export default CardContainer;

@@ -12,10 +12,12 @@ class App extends Component {
     this.state = {
       movieArray: [],
       displayArray: [],
-      favoritesArray: []
+      favoritesArray: [],
+      displayArrayType: '',
     }
     this.cardClicked = this.cardClicked.bind(this);
     this.displayFavorites = this.displayFavorites.bind(this);
+    this.handleSectionClick = this.handleSectionClick.bind(this);
   }
 
   cardClicked(url) {
@@ -49,9 +51,22 @@ class App extends Component {
     Promise.all(favoritesUnresolvedPromises)
     .then(resolvedPromiseArray => {
       this.setState({
-        displayArray: resolvedPromiseArray
+        displayArray: resolvedPromiseArray,
+        displayArrayType: 'Favorites'
       })
     })
+  }
+
+  handleSectionClick(section) {
+    if ( section === "people" ) {
+      this.getPeopleData('https://swapi.co/api/people/')
+    }
+    if ( section === "planets" ) {
+      this.getPlanetsData('https://swapi.co/api/planets/')
+    }
+    if ( section === "vehicles" ) {
+      this.getVehiclesData('https://swapi.co/api/vehicles/')
+    }
   }
 
   getMovieData(url){
@@ -76,7 +91,8 @@ class App extends Component {
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            displayArray: promiseAllResults
+            displayArray: promiseAllResults,
+            displayArrayType: 'People'
           })
         })
     })
@@ -93,7 +109,8 @@ class App extends Component {
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            displayArray: promiseAllResults
+            displayArray: promiseAllResults,
+            displayArrayType: 'Planets'
           })
         })
     })
@@ -109,7 +126,8 @@ class App extends Component {
     })
     .then(vehiclesResolvedPromises => {
       this.setState({
-        displayArray: vehiclesResolvedPromises
+        displayArray: vehiclesResolvedPromises,
+        displayArrayType: 'Vehicles'
       })
     });
   }
@@ -135,13 +153,15 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Aside movieData={this.state.movieArray}/>
+        <Aside
+          movieData={this.state.movieArray} />
         <Header
           numberOfFavorites={this.state.favoritesArray.length}
-          favoriteButtonClick={this.displayFavorites}
-          />
-        <Nav />
+          favoriteButtonClick={this.displayFavorites} />
+        <Nav
+          buttonCallback={this.handleSectionClick} />
         <CardContainer
+          displayArrayType={this.state.displayArrayType}
           nounObjects={this.state.displayArray}
           onCardClick={this.cardClicked}
           favoritesArray={this.state.favoritesArray} />
