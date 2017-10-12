@@ -16,6 +16,7 @@ class App extends Component {
     }
     this.cardClicked = this.cardClicked.bind(this);
     this.displayFavorites = this.displayFavorites.bind(this);
+    this.handleSectionClick = this.handleSectionClick.bind(this);
   }
 
   cardClicked(url) {
@@ -52,6 +53,18 @@ class App extends Component {
         displayArray: resolvedPromiseArray
       })
     })
+  }
+
+  handleSectionClick(section) {
+    if ( section === "people" ) {
+      this.getPeopleData('https://swapi.co/api/people/')
+    }
+    if ( section === "planets" ) {
+      this.getPlanetsData('https://swapi.co/api/planets/')
+    }
+    if ( section === "vehicles" ) {
+      this.getVehiclesData('https://swapi.co/api/vehicles/')
+    }
   }
 
   getMovieData(url){
@@ -135,12 +148,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Aside movieData={this.state.movieArray}/>
+        <Aside
+          movieData={this.state.movieArray} />
         <Header
           numberOfFavorites={this.state.favoritesArray.length}
-          favoriteButtonClick={this.displayFavorites}
-          />
-        <Nav />
+          favoriteButtonClick={this.displayFavorites} />
+        <Nav
+          buttonCallback={this.handleSectionClick} />
         <CardContainer
           nounObjects={this.state.displayArray}
           onCardClick={this.cardClicked}
