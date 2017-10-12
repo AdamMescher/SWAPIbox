@@ -115,7 +115,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.getMovieData('https://swapi.co/api/films');
+    this.getMovieData('https://swapi.co/api/films');
     // this.getPlanetsData('https://swapi.co/api/planets')
     this.getVehiclesData('https://swapi.co/api/vehicles');
     // this.getPeopleData('https://swapi.co/api/people')
@@ -124,9 +124,7 @@ class App extends Component {
 
   render() {
     if( !this.state.movieArray.length ||
-        !this.state.planetArray.length ||
-        !this.state.peopleArray.length ||
-        !this.state.vehicleArray.length
+        !this.state.displayArray.length
       ){
          return(
            <div className="loading-container">
@@ -138,13 +136,11 @@ class App extends Component {
     return (
       <div className="App">
         <Aside movieData={this.state.movieArray}/>
-        <Header numberOfFavorites="0"/>
+        <Header
+          numberOfFavorites={this.state.favoritesArray.length}
+          favoriteButtonClick={this.displayFavorites}
+          />
         <Nav />
-        <Button
-          buttonClass='favorites-button'
-          buttonCallback={this.displayFavorites}
-          buttonText='Display Favorites'
-          extraContent={this.state.favoritesArray.length}/>
         <CardContainer
           nounObjects={this.state.displayArray}
           onCardClick={this.cardClicked}

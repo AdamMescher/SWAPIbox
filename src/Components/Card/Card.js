@@ -11,9 +11,9 @@ const Card = ( {name, url, displayData, onCardClick, isFavorite } ) => {
         >{key.toUpperCase()}: {displayData[key]}</li>
     )
   });
-
+  const appliedClasses = isFavorite === 'favorite' ? 'card neon favorite' : 'card neon'
   return (
-    <div className="card neon">
+    <div className={appliedClasses}>
       <section className="card-header">
         <li className="ghost"></li>
         <h3 className="card-title">{name}</h3>
