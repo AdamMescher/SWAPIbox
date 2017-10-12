@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       movieArray: [],
       displayArray: [],
-      favoritesArray: []
+      favoritesArray: [],
+      displayArrayType: '',
     }
     this.cardClicked = this.cardClicked.bind(this);
     this.displayFavorites = this.displayFavorites.bind(this);
@@ -50,7 +51,8 @@ class App extends Component {
     Promise.all(favoritesUnresolvedPromises)
     .then(resolvedPromiseArray => {
       this.setState({
-        displayArray: resolvedPromiseArray
+        displayArray: resolvedPromiseArray,
+        displayArrayType: 'Favorites'
       })
     })
   }
@@ -89,7 +91,8 @@ class App extends Component {
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            displayArray: promiseAllResults
+            displayArray: promiseAllResults,
+            displayArrayType: 'People'
           })
         })
     })
@@ -106,7 +109,8 @@ class App extends Component {
       Promise.all(unresolvedPromises)
         .then(promiseAllResults => {
           this.setState({
-            displayArray: promiseAllResults
+            displayArray: promiseAllResults,
+            displayArrayType: 'Planets'
           })
         })
     })
@@ -122,7 +126,8 @@ class App extends Component {
     })
     .then(vehiclesResolvedPromises => {
       this.setState({
-        displayArray: vehiclesResolvedPromises
+        displayArray: vehiclesResolvedPromises,
+        displayArrayType: 'Vehicles'
       })
     });
   }
@@ -156,6 +161,7 @@ class App extends Component {
         <Nav
           buttonCallback={this.handleSectionClick} />
         <CardContainer
+          displayArrayType={this.state.displayArrayType}
           nounObjects={this.state.displayArray}
           onCardClick={this.cardClicked}
           favoritesArray={this.state.favoritesArray} />
