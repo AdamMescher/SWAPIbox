@@ -79,15 +79,21 @@ class App extends Component {
   }
 
   getMovieData(url){
-    fetch(url)
-      .then( rawData => rawData.json() )
-        .then( data => data.results.map( movie => {
-          return {
-            title: movie.title,
-            date: movie.created.slice(0, 10),
-            text: movie.opening_crawl
-          }
-        } ) ).then( response =>  this.setState({movieArray: response}) )
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        movieArray: JSON.parse(localStorage[url]),
+      })
+    } else {
+      fetch(url)
+        .then( rawData => rawData.json() )
+          .then( data => data.results.map( movie => {
+            return {
+              title: movie.title,
+              date: movie.created.slice(0, 10),
+              text: movie.opening_crawl
+            }
+          } ) ).then( response =>  this.setState({movieArray: response}) )
+      }
   }
 
   getPeopleData(url){
