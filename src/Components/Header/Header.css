@@ -17,11 +17,13 @@ header {
 }
 
 .show-favorites {
+  background-color: white;
+  color: white;
   border: none;
   grid-area: 2 / 2 / 3 / 3 ;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
-.show-favorite : hover {
-  background-color: red;
+.show-favorites:hover{
+  background-color:  red;
 }
