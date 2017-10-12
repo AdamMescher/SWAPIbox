@@ -22,7 +22,6 @@ header {
   border-radius: 6px;
 }
 
-.show-favorites:hover {
+.show-favorite : hover {
   background-color: red;
-  color: white;
 }
