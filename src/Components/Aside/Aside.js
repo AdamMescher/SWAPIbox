@@ -10,4 +10,8 @@ const Aside = ({movieData}) => {
   )
 }
 
+Aside.propTypes = {
+  movieData: PropTypes.array
+}
+
 export default Aside;

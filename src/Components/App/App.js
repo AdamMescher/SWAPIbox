@@ -4,7 +4,6 @@ import Aside from '../Aside/Aside';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
 import { getVehicleData, getPersonData, getPlanetData } from '../../apiHelpers';
-import Button from '../Button/Button';
 
 class App extends Component {
   constructor () {
@@ -33,23 +32,32 @@ class App extends Component {
   displayFavorites() {
     const favoritesUnresolvedPromises = this.state.favoritesArray.map(
       (favorite) => {
-        return fetch(favorite)
-        .then( rawData => rawData.json())
-        .then(favoriteObject => {
-          if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
-            return getVehicleData(favoriteObject)
-          }
-          if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
-            return getPersonData(favoriteObject);
-          }
-          if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
-            return getPlanetData(favoriteObject);
-          }
-        })
+        if (Object.keys(localStorage).find( (key) => key===favorite ) ) {
+          return JSON.parse(localStorage[favorite])
+          } else {
+          return fetch(favorite)
+          .then( rawData => rawData.json())
+          .then(favoriteObject => {
+            if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
+              return getVehicleData(favoriteObject)
+            }
+            if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
+              return getPersonData(favoriteObject);
+            }
+            if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
+              return getPlanetData(favoriteObject);
+            }
+          })
+        }
       }
     )
     Promise.all(favoritesUnresolvedPromises)
     .then(resolvedPromiseArray => {
+      resolvedPromiseArray.forEach( (favoriteObject) => {
+        if (!localStorage[favoriteObject.url]) {
+          localStorage.setItem(favoriteObject.url, JSON.stringify(favoriteObject))
+        }
+      });
       this.setState({
         displayArray: resolvedPromiseArray,
         displayArrayType: 'Favorites'
@@ -70,74 +78,101 @@ class App extends Component {
   }
 
   getMovieData(url){
-    fetch(url)
-      .then( rawData => rawData.json() )
-        .then( data => data.results.map( movie => {
-          return {
-            title: movie.title,
-            date: movie.created.slice(0, 10),
-            text: movie.opening_crawl
-          }
-        } ) ).then( response =>  this.setState({movieArray: response}) )
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        movieArray: JSON.parse(localStorage[url]),
+      })
+    } else {
+      fetch(url)
+        .then( rawData => rawData.json() )
+          .then( data => data.results.map( movie => {
+            return {
+              title: movie.title,
+              date: movie.created.slice(0, 10),
+              text: movie.opening_crawl
+            }
+          } ) ).then( response =>  this.setState({movieArray: response}) )
+      }
   }
 
   getPeopleData(url){
-    fetch(url)
-    .then(raw => raw.json())
-    .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (person) => {
-        return getPersonData(person)
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        displayArray: JSON.parse(localStorage[url]),
+        displayArrayType: 'People'
       })
-      Promise.all(unresolvedPromises)
-        .then(promiseAllResults => {
-          this.setState({
-            displayArray: promiseAllResults,
-            displayArrayType: 'People'
-          })
+    } else {
+      fetch(url)
+      .then(raw => raw.json())
+      .then(parsedData => {
+        const unresolvedPromises = parsedData.results.map( (person) => {
+          return getPersonData(person)
         })
-    })
+        Promise.all(unresolvedPromises)
+          .then(promiseAllResults => {
+            localStorage.setItem(url, JSON.stringify(promiseAllResults))
+            this.setState({
+              displayArray: promiseAllResults,
+              displayArrayType: 'People'
+            })
+          })
+      })
+    }
   }
 
   getPlanetsData(url){
-    fetch(url)
-    .then(raw => raw.json())
-    .catch(err => { console.log(`danger will robinson: ${err}`);})
-    .then(parsedData => {
-      const unresolvedPromises = parsedData.results.map( (planet) => {
-        return getPlanetData(planet);
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        displayArray: JSON.parse(localStorage[url]),
+        displayArrayType: 'Planets'
+      })
+    } else {
+      fetch(url)
+      .then(raw => raw.json())
+      .catch(err => { console.log(`danger will robinson: ${err}`);})
+      .then(parsedData => {
+        const unresolvedPromises = parsedData.results.map( (planet) => {
+          return getPlanetData(planet);
+            })
+        Promise.all(unresolvedPromises)
+          .then(promiseAllResults => {
+            localStorage.setItem(url, JSON.stringify(promiseAllResults))
+            this.setState({
+              displayArray: promiseAllResults,
+              displayArrayType: 'Planets'
+            })
           })
-      Promise.all(unresolvedPromises)
-        .then(promiseAllResults => {
-          this.setState({
-            displayArray: promiseAllResults,
-            displayArrayType: 'Planets'
-          })
-        })
-    })
+      })
+    }
   }
 
   getVehiclesData(url) {
-    fetch(url)
-    .then(rawVehiclesData => rawVehiclesData.json())
-    .then(vehiclesData => {
-      return vehiclesData.results.map( (vehicle) => {
-        return getVehicleData(vehicle);
-      })
-    })
-    .then(vehiclesResolvedPromises => {
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
       this.setState({
-        displayArray: vehiclesResolvedPromises,
+        displayArray: JSON.parse(localStorage[url]),
         displayArrayType: 'Vehicles'
       })
-    });
+    } else {
+      fetch(url)
+      .then(rawVehiclesData => rawVehiclesData.json())
+      .then(vehiclesData => {
+        return vehiclesData.results.map( (vehicle) => {
+          return getVehicleData(vehicle);
+        })
+      })
+      .then(vehiclesResolvedPromises => {
+        localStorage.setItem(url, JSON.stringify(vehiclesResolvedPromises))
+        this.setState({
+          displayArray: vehiclesResolvedPromises,
+          displayArrayType: 'Vehicles'
+        })
+      });
+    }
   }
 
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    // this.getPlanetsData('https://swapi.co/api/planets')
     this.getVehiclesData('https://swapi.co/api/vehicles');
-    // this.getPeopleData('https://swapi.co/api/people')
-    // this.displayFavorites()
   }
 
   render() {
