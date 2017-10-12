@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  grid-area: 1 / 2 / 2 / 3;
+  border-bottom: 2px solid grey;
+  margin: 0 5% 0 5%;
+}
+
+.header-title {
+  justify-self: center;
+}
+
+.show-favorites {
+  background-color: white;
+  border: none;
+}
+
+.show-favorites:hover {
+  background-color: red;
+  color: white;
+}

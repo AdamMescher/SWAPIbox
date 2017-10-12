@@ -1,0 +1,46 @@
+.card {
+  background-color: #747a80;
+  height: 250px;
+  width: 180px;
+  margin: 0 10px 10px 0;
+  display: grid;
+  grid-template-rows: 20% ;
+  grid-template-columns: 80% 20%;
+}
+
+.card-header {
+  grid-area: 1 / 1 / 2 / 3;
+  background-color: magenta;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 70% 30%;
+
+  border-bottom: 1px white dotted;
+}
+
+.card-title {
+  color: white;
+  height: 100%;
+  grid-area: 1 / 1 / 2 / 2;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-favorite-button {
+  grid-area: 1 / 2 / 2 / 3;
+  height: 100%;
+  width: 100%;
+  background-color: #4a5360;
+  border: none;
+  background-color: teal;
+  padding: 0;
+}
+
+.card-favorite-button:hover {
+  color: #ffff00;
+}
+
+.card-definition-list {
+  grid-area: 2 / 1 / 3 / 3;
+  margin: 10px 10px 0 10px;
+}
