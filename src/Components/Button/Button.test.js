@@ -21,19 +21,19 @@ describe(`Button`, () => {
 
   test(`Can be created`, () => {
     expect(wrapper.exists()).toEqual(true);
-  })
+  });
 
   test(`Receives properties`, () => {
     expect(button.type()).toEqual('button');
     expect(buttonText).toEqual('Button Text');
-  })
+  });
 
   test(`receives a class`, () => {
     expect((button).hasClass('button-class')).toEqual(true);
-  })
+  });
 
   test(`clicking the button triggers the function`, () => {
     button.simulate('click');
-    expect(mockFunction.mock.calls.length).toBe(1)
-  })
+    expect(mockFunction.mock.calls.length).toBe(1);
+  });
 });

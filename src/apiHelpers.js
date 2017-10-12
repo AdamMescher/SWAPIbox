@@ -9,17 +9,19 @@ const getPersonData = (person) => {
       Object.assign(tempObject, {
         homeworld: homeworldData.name,
         homeworldPop: homeworldData.population
-      })
+      });
     })
-    .then(totallynewstuff => {
+    .then( () => {
       const unresolvedSpeciesPromises = person.species.map((eachSpecies) => {
         return fetch(eachSpecies)
-        .then(speciesRawData => speciesRawData.json())
-      })
+          .then(speciesRawData => speciesRawData.json());
+      });
       return Promise.all(unresolvedSpeciesPromises)
-      .then(resolvedSpecies => Object.assign(tempObject, {species: resolvedSpecies}))
-    })
-}
+        .then(resolvedSpecies => Object.assign(
+          tempObject, {species: resolvedSpecies})
+        );
+    });
+};
 
 const getPlanetData = (planet) => {
   let tempObject = {
@@ -31,11 +33,13 @@ const getPlanetData = (planet) => {
   };
   const unresolvedResidentPromises = planet.residents.map((eachResident) => {
     return fetch(eachResident)
-    .then(speciesRawData => speciesRawData.json())
-  })
+      .then(speciesRawData => speciesRawData.json());
+  });
   return Promise.all(unresolvedResidentPromises)
-  .then(pendingResidents => Object.assign(tempObject, {residents: pendingResidents}))
-}
+    .then(pendingResidents => Object.assign(
+      tempObject, {residents: pendingResidents})
+    );
+};
 
 const getVehicleData = (vehicle) => {
   return Object.assign({}, {
@@ -44,7 +48,7 @@ const getVehicleData = (vehicle) => {
     class: vehicle.vehicle_class,
     passengers: vehicle.passengers,
     url: vehicle.url
-  })
-}
+  });
+};
 
 export { getPlanetData, getPersonData, getVehicleData };

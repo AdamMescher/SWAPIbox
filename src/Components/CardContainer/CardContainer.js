@@ -5,11 +5,12 @@ import dataBuilder from '../../helper';
 
 const cardFavoriteChecker = (favoritesArray, card) => {
   if (favoritesArray.find( favorite => card.url === favorite)) {
-    return 'favorite'
+    return 'favorite';
   }
-}
+};
 
-const CardContainer = ( { nounObjects, onCardClick, favoritesArray, displayArrayType } ) => {
+const CardContainer =
+( { nounObjects, onCardClick, favoritesArray, displayArrayType } ) => {
   const mappedCards = nounObjects.map( (noun, index) => {
     noun = dataBuilder(noun);
     return (
@@ -23,8 +24,8 @@ const CardContainer = ( { nounObjects, onCardClick, favoritesArray, displayArray
           onCardClick={onCardClick}
           isFavorite={cardFavoriteChecker(favoritesArray, noun)}/>
       </li>
-    )
-  })
+    );
+  });
 
   return (
     <div className="card-container">
@@ -33,14 +34,14 @@ const CardContainer = ( { nounObjects, onCardClick, favoritesArray, displayArray
         {mappedCards}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 CardContainer.propTypes = {
   nounObjects: PropTypes.array,
   onCardClick: PropTypes.func,
   favoritesArray: PropTypes.array,
   displayArrayType: PropTypes.string
-}
+};
 
 export default CardContainer;

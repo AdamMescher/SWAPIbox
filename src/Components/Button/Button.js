@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ( { buttonText, buttonClass, buttonCallback, extraContent } ) => (
+const Button = (
+  { buttonText,
+    buttonClass,
+    buttonCallback,
+    extraContent }
+) => (
   <button
     className={buttonClass}
     onClick={buttonCallback}>
