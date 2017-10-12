@@ -1,4 +1,5 @@
 .neon {
+  transition: 0.4s;
   color: #fff;
   box-shadow:
     0 0 5px #fff,
@@ -12,6 +13,7 @@
 }
 
 .neon:hover {
+  transition: 0.4s;
   box-shadow:
     0 0 5px #fff,
     0 0 10px #fff,
@@ -25,7 +27,7 @@
 
 .card {
   background-color: #363636;
-  height: 450px;
+  height: 430px;
   width: 300px;
   margin: 0 110px 110px 0;
   display: grid;
@@ -33,7 +35,7 @@
   grid-template-columns: 1fr;
   border-radius: 4px;
   overflow: none;
-  border: 1px solid grey;
+  border: 2px solid grey;
 }
 
 .card-header {
@@ -53,20 +55,24 @@ svg:hover {
 }
 
 .card-title {
-  color: black;
-  margin: 0;
+  font-family: 'Crete Round', serif;
+  color: #124E78;
+  margin: 0px 5px 5px 0px;
   height: 100%;
+  width: 100%;
   grid-area: 1 / 1 / 2 / 2;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2em;
+  font-size: 26px;
   line-height: 1.3;
   font-weight: 700;
   text-transform: uppercase;
+
 }
 
 .card-favorite-button {
+  transition: 0.2s;
   grid-area: 1 / 2 / 2 / 3;
   height: 100%;
   width: 60px;
@@ -82,6 +88,7 @@ svg:hover {
 }
 
 .card-favorite-button:hover {
+  transition: 0.2s;
   background-image: url('../../Assets/Images/rebel-symbol-red.svg');
   background-size: 80% 80%;
   background-repeat: no-repeat;
@@ -93,6 +100,13 @@ svg:hover {
   height: 60%;
 }
 
+.favorite .card-favorite-button{
+  background-image: url('../../Assets/Images/rebel-symbol-red.svg');
+}
+
+.favorite .card-favorite-button:hover {
+  background-image: url('../../Assets/Images/rebel-symbol-white.svg');
+}
 
 .card-list {
   grid-area: 2 / 1 / 3 / 3;
@@ -105,7 +119,7 @@ svg:hover {
 
 .card-list-item {
   margin-bottom: 8px;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.5;
   margin-right: 10px;
 }
