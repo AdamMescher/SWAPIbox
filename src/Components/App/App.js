@@ -168,9 +168,33 @@ class App extends Component {
     }
   }
 
+  getGroupData(url, dataType) {
+    if (Object.keys(localStorage).find( (key) => key===url ) ) {
+      this.setState({
+        displayArray: JSON.parse(localStorage[url]),
+        displayArrayType: dataType
+      });
+    } else {
+      fetch(url)
+        .then(rawGroupData => rawGroupData.json())
+        .then(groupData => {
+          return groupData.results.map( (individual) => {
+            return getIndividualData(individual);
+          });
+        })
+        .then(resolvedPromises => {
+          localStorage.setItem(url, JSON.stringify(resolvedPromises));
+          this.setState({
+            displayArray: resolvedPromises,
+            displayArrayType: dataType
+          });
+        });
+    }
+  }
+
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    this.getVehiclesData('https://swapi.co/api/vehicles');
+    this.getGroupData('https://swapi.co/api/vehicles', 'vehicles');
   }
 
   render() {
