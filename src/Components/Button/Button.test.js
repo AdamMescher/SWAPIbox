@@ -13,6 +13,7 @@ describe(`Button`, () => {
       <Button
         buttonText='Button Text'
         buttonClass='button-class'
+        extraContent={4}
         buttonCallback={mockFunction} />
     );
     button = wrapper.find('button');
@@ -25,7 +26,7 @@ describe(`Button`, () => {
 
   test(`Receives properties`, () => {
     expect(button.type()).toEqual('button');
-    expect(buttonText).toEqual('Button Text');
+    expect(buttonText).toEqual('Button Text 4');
   });
 
   test(`receives a class`, () => {

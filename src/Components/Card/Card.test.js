@@ -3,11 +3,14 @@ import { shallow, mount } from 'enzyme';
 import Card from './Card';
 
 describe( `CARD`, () => {
-  let wrapper;
-  let card;
+  let
+    wrapperPerson,
+    wrapperPlanet,
+    wrapperVehicle,
+    card;
 
   beforeEach( () => {
-    wrapperPerson = shallow (
+    wrapperPerson = shallow(
       <Card
         nounObject={ {
           name: 'Luke Skywalker',
@@ -18,7 +21,7 @@ describe( `CARD`, () => {
         } }
       />);
 
-    wrapperPlanet = shallow (
+    wrapperPlanet = shallow(
       <Card
         nounObject={{
           name: 'Tatooine',
