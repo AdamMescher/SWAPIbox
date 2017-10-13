@@ -3,7 +3,7 @@ import CardContainer from '../CardContainer/CardContainer';
 import Aside from '../Aside/Aside';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
-import { getVehicleData, getPersonData, getPlanetData } from '../../apiHelpers';
+import getIndividualData from '../../apiHelpers';
 
 class App extends Component {
   constructor () {
@@ -39,15 +39,7 @@ class App extends Component {
           return fetch(favorite)
             .then( rawData => rawData.json())
             .then(favoriteObject => {
-              if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
-                return getVehicleData(favoriteObject);
-              }
-              if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
-                return getPersonData(favoriteObject);
-              }
-              if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
-                return getPlanetData(favoriteObject);
-              }
+              return getIndividualData(favoriteObject);
             });
         }
       }
@@ -110,7 +102,7 @@ class App extends Component {
         .then(raw => raw.json())
         .then(parsedData => {
           const unresolvedPromises = parsedData.results.map( (person) => {
-            return getPersonData(person);
+            return getIndividualData(person);
           });
           Promise.all(unresolvedPromises)
             .then(promiseAllResults => {
@@ -138,7 +130,7 @@ class App extends Component {
         })
         .then(parsedData => {
           const unresolvedPromises = parsedData.results.map( (planet) => {
-            return getPlanetData(planet);
+            return getIndividualData(planet);
           });
           Promise.all(unresolvedPromises)
             .then(promiseAllResults => {
@@ -163,7 +155,7 @@ class App extends Component {
         .then(rawVehiclesData => rawVehiclesData.json())
         .then(vehiclesData => {
           return vehiclesData.results.map( (vehicle) => {
-            return getVehicleData(vehicle);
+            return getIndividualData(vehicle);
           });
         })
         .then(vehiclesResolvedPromises => {
