@@ -1,8 +1,35 @@
-const getPersonData = (person) => {
+const getIndividualData = (individualObject) => {
   let tempObject = {
-    name: person.name,
-    url: person.url
+    name: individualObject.name,
+    url: individualObject.url
   };
+
+  switch (detectType(tempObject)) {
+  case 'person':
+    return getPersonData(individualObject, tempObject);
+  case 'planet':
+    return getPlanetData(individualObject, tempObject);
+  case 'vehicle':
+    return getVehicleData(individualObject, tempObject);
+  default:
+    return 'unexpected data type';
+  }
+
+};
+
+const detectType = (tempObject) => {
+  if ( /^https:\/\/swapi.co\/api\/vehicle/.test(tempObject.url) ) {
+    return 'vehicle';
+  }
+  if ( /^https:\/\/swapi.co\/api\/people/.test(tempObject.url) ) {
+    return 'person';
+  }
+  if ( /^https:\/\/swapi.co\/api\/planet/.test(tempObject.url) ) {
+    return 'planet';
+  }
+};
+
+const getPersonData = (person, tempObject) => {
   return fetch(person.homeworld)
     .then(homeworldRawData => homeworldRawData.json())
     .then(homeworldData => {
@@ -23,14 +50,12 @@ const getPersonData = (person) => {
     });
 };
 
-const getPlanetData = (planet) => {
-  let tempObject = {
-    name: planet.name,
+const getPlanetData = (planet, tempObject) => {
+  tempObject = Object.assign(tempObject, {
     terrain: planet.terrain,
     population: planet.population,
-    climate: planet.climate,
-    url: planet.url
-  };
+    climate: planet.climate
+  });
   const unresolvedResidentPromises = planet.residents.map((eachResident) => {
     return fetch(eachResident)
       .then(speciesRawData => speciesRawData.json());
@@ -41,14 +66,12 @@ const getPlanetData = (planet) => {
     );
 };
 
-const getVehicleData = (vehicle) => {
-  return Object.assign({}, {
-    name: vehicle.name,
+const getVehicleData = (vehicle, tempObject) => {
+  return Object.assign(tempObject, {
     model: vehicle.model,
     class: vehicle.vehicle_class,
-    passengers: vehicle.passengers,
-    url: vehicle.url
+    passengers: vehicle.passengers
   });
 };
 
-export { getPlanetData, getPersonData, getVehicleData };
+export default getIndividualData;

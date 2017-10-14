@@ -3,7 +3,7 @@ import CardContainer from '../CardContainer/CardContainer';
 import Aside from '../Aside/Aside';
 import Header from '../Header/Header';
 import Nav from '../Nav/Nav';
-import { getVehicleData, getPersonData, getPlanetData } from '../../apiHelpers';
+import getIndividualData from '../../apiHelpers';
 
 class App extends Component {
   constructor () {
@@ -39,15 +39,7 @@ class App extends Component {
           return fetch(favorite)
             .then( rawData => rawData.json())
             .then(favoriteObject => {
-              if ( /^https:\/\/swapi.co\/api\/vehicle/.test(favorite) ) {
-                return getVehicleData(favoriteObject);
-              }
-              if ( /^https:\/\/swapi.co\/api\/people/.test(favorite) ) {
-                return getPersonData(favoriteObject);
-              }
-              if ( /^https:\/\/swapi.co\/api\/planet/.test(favorite) ) {
-                return getPlanetData(favoriteObject);
-              }
+              return getIndividualData(favoriteObject);
             });
         }
       }
@@ -71,13 +63,13 @@ class App extends Component {
 
   handleSectionClick(section) {
     if ( section === "people" ) {
-      this.getPeopleData('https://swapi.co/api/people/');
+      this.getGroupData('https://swapi.co/api/people/', 'people');
     }
     if ( section === "planets" ) {
-      this.getPlanetsData('https://swapi.co/api/planets/');
+      this.getGroupData('https://swapi.co/api/planets/', 'planets');
     }
     if ( section === "vehicles" ) {
-      this.getVehiclesData('https://swapi.co/api/vehicles/');
+      this.getGroupData('https://swapi.co/api/vehicles/', 'vehicle');
     }
   }
 
@@ -99,78 +91,25 @@ class App extends Component {
     }
   }
 
-  getPeopleData(url){
+  getGroupData(url, dataType) {
     if (Object.keys(localStorage).find( (key) => key===url ) ) {
       this.setState({
         displayArray: JSON.parse(localStorage[url]),
-        displayArrayType: 'People'
+        displayArrayType: dataType
       });
     } else {
       fetch(url)
-        .then(raw => raw.json())
-        .then(parsedData => {
-          const unresolvedPromises = parsedData.results.map( (person) => {
-            return getPersonData(person);
-          });
-          Promise.all(unresolvedPromises)
-            .then(promiseAllResults => {
-              localStorage.setItem(url, JSON.stringify(promiseAllResults));
-              this.setState({
-                displayArray: promiseAllResults,
-                displayArrayType: 'People'
-              });
-            });
-        });
-    }
-  }
-
-  getPlanetsData(url){
-    if (Object.keys(localStorage).find( (key) => key===url ) ) {
-      this.setState({
-        displayArray: JSON.parse(localStorage[url]),
-        displayArrayType: 'Planets'
-      });
-    } else {
-      fetch(url)
-        .then(raw => raw.json())
-        .catch(error => {
-          alert(`danger will robinson: ${ error }`);
-        })
-        .then(parsedData => {
-          const unresolvedPromises = parsedData.results.map( (planet) => {
-            return getPlanetData(planet);
-          });
-          Promise.all(unresolvedPromises)
-            .then(promiseAllResults => {
-              localStorage.setItem(url, JSON.stringify(promiseAllResults));
-              this.setState({
-                displayArray: promiseAllResults,
-                displayArrayType: 'Planets'
-              });
-            });
-        });
-    }
-  }
-
-  getVehiclesData(url) {
-    if (Object.keys(localStorage).find( (key) => key===url ) ) {
-      this.setState({
-        displayArray: JSON.parse(localStorage[url]),
-        displayArrayType: 'Vehicles'
-      });
-    } else {
-      fetch(url)
-        .then(rawVehiclesData => rawVehiclesData.json())
-        .then(vehiclesData => {
-          return vehiclesData.results.map( (vehicle) => {
-            return getVehicleData(vehicle);
+        .then(rawGroupData => rawGroupData.json())
+        .then(groupData => {
+          return groupData.results.map( (individual) => {
+            return getIndividualData(individual);
           });
         })
-        .then(vehiclesResolvedPromises => {
-          localStorage.setItem(url, JSON.stringify(vehiclesResolvedPromises));
+        .then(resolvedPromises => {
+          localStorage.setItem(url, JSON.stringify(resolvedPromises));
           this.setState({
-            displayArray: vehiclesResolvedPromises,
-            displayArrayType: 'Vehicles'
+            displayArray: resolvedPromises,
+            displayArrayType: dataType
           });
         });
     }
@@ -178,7 +117,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getMovieData('https://swapi.co/api/films');
-    this.getVehiclesData('https://swapi.co/api/vehicles');
+    this.getGroupData('https://swapi.co/api/vehicles', 'vehicles');
   }
 
   render() {
